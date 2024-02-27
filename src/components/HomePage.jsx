@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Carousel from "./Carousel";
 import CarouselCategories from "./CarouselCategories";
+import CarouselProducts from "./CarouselProducts";
 import HomePageCards from "./HomePageCards";
 
 const HomePage = () => {
@@ -80,7 +81,14 @@ const HomePage = () => {
             link={"Learn more"}
           />
         </div>
+        <CarouselProducts />
         <CarouselCategories />
+        <div className="h-[200px]">
+          <img
+            className="h-[100%] m-auto"
+            src={"../../public/images/banner_image.jpg"}
+          />
+        </div>
       </div>
     </div>
   );
