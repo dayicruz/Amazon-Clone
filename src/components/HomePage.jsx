@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Carousel from "./Carousel";
+import CarouselCategories from "./CarouselCategories";
 import HomePageCards from "./HomePageCards";
 
 const HomePage = () => {
@@ -79,6 +80,7 @@ const HomePage = () => {
             link={"Learn more"}
           />
         </div>
+        <CarouselCategories />
       </div>
     </div>
   );
