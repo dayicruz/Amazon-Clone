@@ -8,38 +8,38 @@ import HomePageCards from "./HomePageCards";
 const HomePage = () => {
   return (
     <div className="bg-amazonclone-background">
-      <div className="bg-amazonclone-background min-w-[1000px] max-w-[1500px] m-auto">
-        <div className="bg-amazonclone-light_blu text-white gap-6 flex  p-3 text-sm">
-          <NavLink to={"/prime"}>
-            <h1>Prime</h1>
-          </NavLink>
-          <NavLink to={"/books"}>
-            <h1>Books</h1>
-          </NavLink>
-          <NavLink to={"/clothes"}>
-            <h1>Clothes</h1>
-          </NavLink>
-          <NavLink to={"/fitnes"}>
-            <h1>Fitnes</h1>
-          </NavLink>
-          <NavLink to={"/technology"}>
-            <h1>Technology</h1>
-          </NavLink>
-          <NavLink to={"/offers"}>
-            <h1>Offers</h1>
-          </NavLink>
-          <NavLink to={"/themostsold"}>
-            <h1>The most sold</h1>
-          </NavLink>
-          <NavLink to={"/giftcards"}>
-            <h1>Gift Cards</h1>
-          </NavLink>
-          <NavLink to={"/customerService"}>
-            <h1>Customer Service</h1>
-          </NavLink>
-        </div>
+      <div className="bg-amazonclone-light_blu p-3  gap-[10px] overflow-x-auto no-scrollbar max-w-full whitespace-nowrap text-white 2xl:gap-6 flex  text-sm  ">
+        <NavLink to={"/prime"}>
+          <h1>Prime</h1>
+        </NavLink>
+        <NavLink to={"/books"}>
+          <h1>Books</h1>
+        </NavLink>
+        <NavLink to={"/clothes"}>
+          <h1>Clothes</h1>
+        </NavLink>
+        <NavLink to={"/fitnes"}>
+          <h1>Fitnes</h1>
+        </NavLink>
+        <NavLink to={"/technology"}>
+          <h1>Technology</h1>
+        </NavLink>
+        <NavLink to={"/offers"}>
+          <h1>Offers</h1>
+        </NavLink>
+        <NavLink to={"/themostsold"}>
+          <h1>The most sold</h1>
+        </NavLink>
+        <NavLink to={"/giftcards"}>
+          <h1>Gift Cards</h1>
+        </NavLink>
+        <NavLink to={"/customerService"}>
+          <h1>Customer Service</h1>
+        </NavLink>
+      </div>
+      <div className="bg-amazonclone-background 2xl:min-w-[1000px] 2xl:max-w-[1500px] 2xl:m-auto  ">
         <Carousel />
-        <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 gap-4 -mt-80  ">
+        <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 -mt-[12vw] lg:-mt-[140px]">
           <HomePageCards
             title={"We Have a Surprise for you"}
             img={"../../public/images/home_grid_1.jpg"}
@@ -83,9 +83,9 @@ const HomePage = () => {
         </div>
         <CarouselProducts />
         <CarouselCategories />
-        <div className="h-[200px]">
+        <div className=" pb-6">
           <img
-            className="h-[100%] m-auto"
+            className="w-[80vw] h-[30vw] m-auto object-fill 2xl:w-[]"
             src={"../../public/images/banner_image.jpg"}
           />
         </div>

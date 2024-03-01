@@ -2,7 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  img,
+  video {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+.swiper-pagination {
+  position: unset;
+}
+.swiper-pagination-bullet {
+  color: rgb(225, 117, 16);
+  background-color: rgb(225, 117, 16);
+  bottom: 50%;
+}
+
 .swiper-button-next,
 .swiper-button-prev {
   color: rgb(225, 117, 16);
+  scale: 0.6;
+  top: 25%;
+  transform: translateY(50%);
 }
