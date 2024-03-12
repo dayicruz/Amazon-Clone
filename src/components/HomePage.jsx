@@ -1,42 +1,12 @@
+import "animate.css";
 import React from "react";
-import { NavLink } from "react-router-dom";
 import Carousel from "./Carousel";
 import CarouselCategories from "./CarouselCategories";
 import CarouselProducts from "./CarouselProducts";
 import HomePageCards from "./HomePageCards";
-
 const HomePage = () => {
   return (
-    <div className="bg-amazonclone-background">
-      <div className="bg-amazonclone-light_blu p-3  gap-[10px] overflow-x-auto no-scrollbar max-w-full whitespace-nowrap text-white 2xl:gap-6 flex  text-sm  ">
-        <NavLink to={"/prime"}>
-          <h1>Prime</h1>
-        </NavLink>
-        <NavLink to={"/books"}>
-          <h1>Books</h1>
-        </NavLink>
-        <NavLink to={"/clothes"}>
-          <h1>Clothes</h1>
-        </NavLink>
-        <NavLink to={"/fitnes"}>
-          <h1>Fitnes</h1>
-        </NavLink>
-        <NavLink to={"/technology"}>
-          <h1>Technology</h1>
-        </NavLink>
-        <NavLink to={"/offers"}>
-          <h1>Offers</h1>
-        </NavLink>
-        <NavLink to={"/themostsold"}>
-          <h1>The most sold</h1>
-        </NavLink>
-        <NavLink to={"/giftcards"}>
-          <h1>Gift Cards</h1>
-        </NavLink>
-        <NavLink to={"/customerService"}>
-          <h1>Customer Service</h1>
-        </NavLink>
-      </div>
+    <div className="bg-amazonclone-background animate__animated animate__fadeIn animate__faster">
       <div className="bg-amazonclone-background 2xl:min-w-[1000px] 2xl:max-w-[1500px] 2xl:m-auto  ">
         <Carousel />
         <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 -mt-[12vw] lg:-mt-[140px]">
