@@ -6,11 +6,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const Carousel = () => {
   return (
-    <div className="h-[600px] bg-white ">
+    <div className=" bg-white ">
       <Swiper
         loop={true}
         spaceBetween={0}
-        className="h-[50%]"
+        className="h-[43vw] max-h-[450px]  "
         navigation={true}
         modules={[Navigation, Autoplay]}
         autoplay={{
@@ -23,8 +23,8 @@ const Carousel = () => {
         <SwiperSlide>
           <img src={"../../public/images/carousel_2.jpg"} />
         </SwiperSlide>
-        <SwiperSlide className="bg-black">
-          <video controls muted="muted">
+        <SwiperSlide className="bg-black ">
+          <video className="object-cover w-full h-[72%]" controls muted="muted">
             <source src="../../public/images/carousel_vid.mp4" />
           </video>
         </SwiperSlide>
@@ -35,7 +35,7 @@ const Carousel = () => {
           <img src={"../../public/images/carousel_5.jpg"} />
         </SwiperSlide>
       </Swiper>
-      <div className="h-[50%] bg-gradient-to-b from-stone-900 " />
+      {/* <div className="h-[50%] bg-gradient-to-b from-stone-900 " /> */}
     </div>
   );
 };
