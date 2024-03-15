@@ -10,8 +10,8 @@ const NavBar = () => {
         <Link to={`/products/books`}>
           <h1>Books</h1>
         </Link>
-        <Link to={`/products/clothes`}>
-          <h1>Clothes</h1>
+        <Link to={`/products/shoes`}>
+          <h1>Shoes</h1>
         </Link>
         <Link to={"/products/fitness"}>
           <h1>Fitness</h1>

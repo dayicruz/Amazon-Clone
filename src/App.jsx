@@ -5,6 +5,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { FirebaseAuth } from "./firebase/config";
 import LoginPage from "./pages/LoginPage";
 import Signup from "./pages/Signup";
+import Spinner from "./pages/Spinner";
 import AppRoutet from "./router/AppRoutet";
 import { PrivateRoute } from "./router/PrivateRoute";
 import { PublicRoute } from "./router/PublicRoute";
@@ -24,6 +25,10 @@ function App() {
       dispatch(login({ uid, email, displayName }));
     });
   }, []);
+
+  if (status === "checking") {
+    return <Spinner />;
+  }
 
   return (
     <>
