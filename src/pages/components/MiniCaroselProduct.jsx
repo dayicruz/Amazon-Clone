@@ -1,25 +1,22 @@
 import { FaCheck } from "react-icons/fa6";
 import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
 import { Link, useParams } from "react-router-dom";
-const ProductsPage = () => {
+
+const MiniCaroselProduct = () => {
   const { productItem } = useParams();
   return (
     <div>
-      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 mt-10 sm:mt-3 justify-items-center sm:justify-items-center">
-        <div className="flex flex-col justify-center items-center mb-7 sm:rounded sm:border sm:border-slate-300 sm:m-5 sm:items-start sm:w-[50vw]  md:w-[40vw]  lg:w-[30vw]  xl:w-[30vw]  2xl:w-[20vw]">
-          <p className="bg-[#c45500] h-6 w-8 text-white text-center text-sm font-semibold sm:block hidden">
-            #1
-          </p>
-
-          <div className="sm:mt-10 sm:self-center ">
+      <div>
+        <div className=" ml-2 flex flex-col justify-center sm:rounded sm:border sm:border-slate-300  items-start w-[40vw] sm:w-[40vw]  md:w-[28vw]  lg:w-[15vw]  xl:w-[15vw]  2xl:w-[12vw]">
+          <div className="sm:mt-5 sm:self-center ">
             <img
               src={"../../public/images/product_1_small.jpg"}
-              className="object-cover w-28 sm:w-32"
+              className="object-cover w-22 sm:w-28"
             />
           </div>
 
           <div className="sm:ml-4">
-            <div className="sm:text-xs sm:mt-2 sm:block hidden">
+            <div className="sm:text-xs text-sm sm:mt-2 ">
               <Link to={`/product/${productItem}/guiness`}>
                 <p className="sm:text-[#007185] sm:font-medium text-wrap">
                   Guinness World Records 2023
@@ -79,4 +76,4 @@ const ProductsPage = () => {
   );
 };
 
-export default ProductsPage;
+export default MiniCaroselProduct;
