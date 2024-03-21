@@ -7,6 +7,7 @@ import BadgeAmazon from "./components/BadgeAmazon";
 import CarouselProducts from "./components/CarouselProducts";
 import Starts from "./components/Starts";
 import TruncateText from "./components/TruncateText";
+
 const ProductBooks = () => {
   return (
     <div className="max-w-screen-xl m-auto p-3">
