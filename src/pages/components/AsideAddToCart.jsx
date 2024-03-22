@@ -20,7 +20,7 @@ export const AsideAddToCart = () => {
           This order contains a gift
         </label>
         <div className="sm:pb-3 ">
-          <Link>
+          <Link to={"/checkout/hui"}>
             <button
               className="sm:rounded-lg sm:border-2 border-[#ffd814] bg-[#ffd814] sm:text-xs text-sm p-1 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[14.5vw] hover:bg-[#ffd814df]"
               type="submit"
@@ -29,16 +29,6 @@ export const AsideAddToCart = () => {
             </button>
           </Link>
         </div>
-        {/* <div className=" sm:hidden ">
-          <Link>
-            <button
-              className="sm:hidden rounded-lg border-2 border-[#ffd814] bg-[#ffd814]  text-sm p-2 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[18vw] hover:bg-[#ffd814df]"
-              type="submit"
-            >
-              Process order ( 1 product )
-            </button>
-          </Link>
-        </div> */}
       </div>
     </div>
   );
