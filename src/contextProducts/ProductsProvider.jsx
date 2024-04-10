@@ -1,18 +1,11 @@
-import {
-  collection,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  startAfter,
-} from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase/config";
 import { ProductsContext } from "./ProductsContext";
 
 const ProductsProvider = ({ children }) => {
   const [productData, setProductData] = useState([]);
-  const [productDataAll, setProductDataAll] = useState([]);
+/*   const [productDataAll, setProductDataAll] = useState([]); */
 
   async function fetchDataFromFirestore() {
     const querySnapshot = await getDocs(collection(db, "products"));
@@ -25,7 +18,7 @@ const ProductsProvider = ({ children }) => {
 
     return data;
   }
-  async function fetchDataFromFirestoreAllProducts() {
+  /*  async function fetchDataFromFirestoreAllProducts() {
     const productsRef = query(
       collection(db, "products"),
       orderBy("title"),
@@ -34,17 +27,6 @@ const ProductsProvider = ({ children }) => {
 
     const docSnap = await getDocs(productsRef);
 
-    const lastVisible = docSnap.docs[docSnap.docs.length - 1];
-    console.log(lastVisible);
-
-    const next = query(
-      collection(db, "products"),
-      orderBy("title"),
-      startAfter(lastVisible),
-      limit(12)
-    );
-    console.log(next)
-
     const data = [];
 
     docSnap.forEach((doc) => {
@@ -52,7 +34,7 @@ const ProductsProvider = ({ children }) => {
     });
 
     return data;
-  }
+  } */
   useEffect(() => {
     async function fetchData() {
       const data = await fetchDataFromFirestore();
@@ -62,17 +44,17 @@ const ProductsProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     async function fetchData() {
       const data = await fetchDataFromFirestoreAllProducts();
       setProductDataAll(data);
     }
 
     fetchData();
-  }, []);
+  }, []); */
 
   return (
-    <ProductsContext.Provider value={{ productData, productDataAll }}>
+    <ProductsContext.Provider value={{ productData }}>
       {children}
     </ProductsContext.Provider>
   );
