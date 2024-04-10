@@ -1,9 +1,22 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { ProductsContext } from "../contextProducts/ProductsContext";
 
 const CarouselProducts = () => {
+  const { productData } = useContext(ProductsContext);
+
+  function randomSort() {
+    return Math.random() - 0.5;
+  }
+
+  const product = productData
+    .filter((product) => product.category === "books")
+    .sort(randomSort);
+
   return (
     <div className="bg-white m-3 2xl:m-6 2xl:p-6 p-3 ">
       <div className="font-bold  text-lg  ">Best Sellers</div>
@@ -25,33 +38,19 @@ const CarouselProducts = () => {
           },
         }}
       >
-        <SwiperSlide className=" h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_0_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_1_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_2_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_3_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_4_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_5_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_6_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_7_small.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide className="h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]">
-          <img src={"../../public/images/product_8_small.jpg"} />
-        </SwiperSlide>
+        {product.map(
+          (product, index) =>
+            index < 6 && (
+              <SwiperSlide
+                key={product.id}
+                className=" h-[40vw] sm:h-[15vw] md:h-[25vw] lg:h-[20vw] xl:h-[20vw] 2xl:h-[15vw]"
+              >
+                <Link to={`/books/books/${product.id}`}>
+                  <img src={product.image} />
+                </Link>
+              </SwiperSlide>
+            )
+        )}
       </Swiper>
     </div>
   );

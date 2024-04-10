@@ -1,52 +1,87 @@
 import { FaCheck } from "react-icons/fa6";
 import { LuFileAudio } from "react-icons/lu";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+import React, { useContext } from "react";
+import { ProductsContext } from "../../contextProducts/ProductsContext";
 
 const AsideDetailPage = () => {
-  const { productItem } = useParams();
+  const navigate = useNavigate();
 
   const onSubmitBasket = () => {
-    console.log("first"),
-    <Navigate to={`/cart/${productItem}`} />;
+    navigate(`/cart/${details}`);
   };
+  const { productItem } = useParams();
+  const { details } = useParams();
+
+  const { productData } = useContext(ProductsContext);
+
+  const product = productData.find((product) => product.id === details);
+
   return (
     <div className="rounded border-4 border-slate-200  sm:w-[25vw] 2xl:w-[20vw] xl:w-[20vw] mt-10 sm:mt-0">
       <div className="flex sm:gap-2 p-3 ">
-        <div className="rounded border border-slate-400 p-1 sm:w-28 w-[45vw]">
-          <div className="flex items-center justify-center">
-            <LuFileAudio className="text-[#ff9a01]" />
+        {productItem === "books" && (
+          <>
+            <div className="rounded border border-slate-400 p-1 sm:w-28 w-[45vw]">
+              <div className="flex items-center justify-center">
+                <LuFileAudio className="text-[#ff9a01]" />
 
-            <p className="sm:text-xs text-sm">Audiobook</p>
-          </div>
+                <p className="sm:text-xs text-sm">Audiobook</p>
+              </div>
 
-          <p className="sm:text-xs text-sm font-bold flex justify-center">
-            0.00 €
-          </p>
-          <p className="sm:text-xs text-sm flex justify-center">
-            with subscription
-          </p>
-        </div>
-        <div className="rounded border border-slate-400 p-1 sm:w-28 w-[45vw] ">
-          <p className="sm:text-xs text-sm flex justify-center">Hard cover</p>
-          <p className="flex justify-center">__</p>
-        </div>
+              <p className="sm:text-xs text-sm font-bold flex justify-center">
+                0.00 €
+              </p>
+              <p className="sm:text-xs text-sm flex justify-center">
+                with subscription
+              </p>
+            </div>
+            <div className="rounded border border-slate-400 p-1 sm:w-28 w-[45vw] ">
+              <p className="sm:text-xs text-sm flex justify-center">
+                Hard cover
+              </p>
+              <p className="flex justify-center">__</p>
+            </div>
+          </>
+        )}
       </div>
+
       <div className="pl-3 pr-3 ">
-        <div className="rounded border-4 sm:border-[#006e8a] border-[#f08804] p-1 mt-2 mb-5 bg-[#e7f4f5] hover:bg-white flex flex-col justify-center items-center">
-          <p className="sm:text-xs text-sm font-semibold ">Soft cover</p>
-          <p className="sm:text-xs text-ml font-bold text-[#b12704] sm:text-black">
-            18.90 €
-          </p>
-          <div className="flex items-center">
-            <p>
-              <FaCheck className="text-[#FF7510] text-xs" />
+        {productItem === "books" && (
+          <div className="rounded border-4 sm:border-[#006e8a] border-[#f08804] p-1 mt-2 mb-5 bg-[#e7f4f5] hover:bg-white flex flex-col justify-center items-center">
+            <p className="sm:text-xs text-sm font-semibold ">Soft cover</p>
+            <p className="sm:text-xs text-ml font-bold text-[#b12704] sm:text-black">
+              {product.price}
             </p>
-            <p className="text-[#1BA1FF] font-bold sm:text-xs text-sm">
-              {" "}
-              prime
-            </p>
+            <div className="flex items-center">
+              <p>
+                <FaCheck className="text-[#FF7510] text-xs" />
+              </p>
+              <p className="text-[#1BA1FF] font-bold sm:text-xs text-sm">
+                {" "}
+                prime
+              </p>
+            </div>
           </div>
-        </div>
+        )}
+
+        {productItem !== "books" && (
+          <div className="rounded border-4 sm:border-[#007600] border-[#f08804] p-5  mb-5 bg-[#e7f4f5] hover:bg-white flex flex-col justify-center items-center">
+            <p className="sm:text-lg text-ml font-bold text-[#b12704] sm:text-black">
+              {product.price}
+            </p>
+            <div className="flex items-center">
+              <p>
+                <FaCheck className="text-[#FF7510] text-lg" />
+              </p>
+              <p className="text-[#1BA1FF] font-bold sm:text-lg text-sm">
+                {" "}
+                prime
+              </p>
+            </div>
+          </div>
+        )}
       </div>
       <div>
         <div className="flex justify-around border-y border-slate-300 sm:p-2 p-5 ">
@@ -57,7 +92,7 @@ const AsideDetailPage = () => {
         <div className="flex justify-between sm:p-3 pl-5 pt-5 ">
           <p className="sm:text-xs sm:font-bold hidden">New:</p>
           <p className="sm:text-xs text-lg text-[#b12704] font-semibold ">
-            €18.90
+            {product.price}
           </p>
         </div>
         <div className="flex flex-col sm:items-end pl-5 ">
@@ -100,15 +135,13 @@ const AsideDetailPage = () => {
           </select>
         </div>
         <div className="p-3 pt-0">
-          <Link>
-            <button
-              onClick={onSubmitBasket}
-              className="rounded-xl border-2 border-[#ffd814] bg-[#ffd814] sm:text-xs text-sm p-1 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[18vw] hover:bg-[#ffd814df]"
-              type="submit"
-            >
-              Add to Card
-            </button>
-          </Link>
+          <button
+            onClick={onSubmitBasket}
+            className="rounded-xl border-2 border-[#ffd814] bg-[#ffd814] sm:text-xs text-sm p-1 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[18vw] hover:bg-[#ffd814df]"
+            type="submit"
+          >
+            Add to Card
+          </button>
         </div>
 
         <div className="grid grid-cols-2 pl-3 mb-3">

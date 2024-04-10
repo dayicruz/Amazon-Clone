@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Pagination } from "swiper/modules";
@@ -7,40 +8,43 @@ const CarouselCategories = () => {
     <div className="bg-white m-3 2xl:m-6 2xl:p-4 p-3">
       <div className="font-bold text-lg ">Shop by Category</div>
       <Swiper
-        slidesPerView={2}
+        slidesPerView={4}
         spaceBetween={20}
         pagination={true}
         modules={[Pagination]}
         breakpoints={{
           640: {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 30,
           },
           768: {
-            slidesPerView: 5,
+            slidesPerView: 3,
           },
           1024: {
-            slidesPerView: 6,
+            slidesPerView: 4,
           },
         }}
       >
         <SwiperSlide>
-          <img src={"../../public/images/category_0.jpg"} />
+          <Link to={`/category/books`}>
+            <img className=" w-40" src={"../../public/images/book (1).png"} />
+          </Link>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <Link to={`/category/shoes`}>
+            <img className="w-40" src={"../../public/images/shoes2.png"} />
+          </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <img src={"../../public/images/category_1.jpg"} />
+          <Link to={"/category/fitness"}>
+            <img className=" w-40" src={"../../public/images/pesas.png"} />
+          </Link>
         </SwiperSlide>
         <SwiperSlide>
-          <img src={"../../public/images/category_2.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={"../../public/images/category_3.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={"../../public/images/category_4.jpg"} />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src={"../../public/images/category_5.jpg"} />
+          <Link to={"/category/mobile"}>
+            <img className="w-40" src={"../../public/images/mobile.png"} />
+          </Link>
         </SwiperSlide>
       </Swiper>
     </div>
