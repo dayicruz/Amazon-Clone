@@ -1,18 +1,29 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
 import PaginationButtons from "./components/PaginationButtons";
 
 const AllProductsPages = () => {
-  const { productItem } = useParams();
-  const { productDataAll } = useContext(ProductsContext);
+  const { productData } = useContext(ProductsContext);
+  
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const productsPerPage = 12;
+
+  const startIndex = currentPage * productsPerPage;
+  const displayedProducts = productData.slice(
+    startIndex,
+    startIndex + productsPerPage
+  );
+
+  const totalPages = Math.ceil(productData.length / productsPerPage);
 
   return (
     <>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 mt-10 sm:mt-3 justify-items-center sm:justify-items-center">
-        {productDataAll.map((product, index) => (
+        {displayedProducts.map((product, index) => (
           <div key={product.id}>
             <div className="flex flex-col justify-between items-center mb-7 sm:rounded sm:border sm:border-slate-300 sm:m-5 sm:items-start sm:w-[50vw]  md:w-[40vw]  lg:w-[30vw]  xl:w-[30vw]  2xl:w-[22vw] min-h-[35vh]">
               <p className="bg-[#c45500] h-6 w-8 text-white text-center text-sm font-semibold sm:block hidden">
@@ -82,7 +93,11 @@ const AllProductsPages = () => {
           </div>
         ))}
       </div>
-      <PaginationButtons />
+      <PaginationButtons
+        currentPage={currentPage}
+        totalPages={totalPages}
+        setCurrentPage={setCurrentPage}
+      />
     </>
   );
 };
