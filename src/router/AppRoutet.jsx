@@ -2,7 +2,9 @@ import { useLayoutEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Footer from "../UI/Footer/Footer";
 import Header from "../UI/Header/Header";
+import Search from "../UI/Header/Search";
 import { HomePage } from "../components";
+import CartProvider from "../contextCart/CartProvider";
 import ProductsProvider from "../contextProducts/ProductsProvider";
 import AddToCart from "../pages/AddToCart";
 import AllProductsPages from "../pages/AllProductsPages";
@@ -23,18 +25,19 @@ const AppRoutet = () => {
   };
 
   return (
-    <ProductsProvider>
+    <ProductsProvider> 
+      <CartProvider>
       <Wrapper>
         <Header />
         <Routes>
           <Route exact path="/" element={<HomePage />} />
+
           <Route path="/category/:productItem" element={<ProductsPage />} />
           <Route
             path="/books/:productItem/:details"
             element={<ProductBooks />}
           />
-          <Route path="/cart/:item" element={<AddToCart />} />
-          <Route path="/checkout/:productId" element={<CheckoutPage />} />
+
           <Route
             path="/shoes/:productItem/:details"
             element={<ProductShoes />}
@@ -52,10 +55,18 @@ const AppRoutet = () => {
 
           <Route path="/products/:all" element={<AllProductsPages />} />
 
+         
+            <Route path="/cart/:item" element={<AddToCart />} />
+            <Route path="/checkout/:productId" element={<CheckoutPage />} />
+         
+
+          <Route element={<Search />} />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />
       </Wrapper>
+ </CartProvider>
     </ProductsProvider>
   );
 };

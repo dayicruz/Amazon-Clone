@@ -1,18 +1,24 @@
-import React from "react";
+import { default as React, useContext } from "react";
 import { FaCheck } from "react-icons/fa6";
+import { useParams } from "react-router-dom";
+import { ProductsContext } from "../contextProducts/ProductsContext";
 import { AsideAddToCart } from "./components/AsideAddToCart";
 import BadgeAmazon from "./components/BadgeAmazon";
 
-import { useContext } from "react";
-import { useParams } from "react-router-dom";
-import { ProductsContext } from "../contextProducts/ProductsContext";
+import { CartContext } from "../contextCart/CartContext";
 
 const AddToCart = () => {
   const { item } = useParams();
 
-  const { productData } = useContext(ProductsContext);
+  const {
+    selectedOption,
+    quantityOptions,
+    handleSelectChange,
+    handleClickCheckbox,
+    isChecked,
+  } = useContext(CartContext);
 
-  const product = productData.find((product) => product.id === item);
+  const { productData } = useContext(ProductsContext);
 
   return (
     <div>
@@ -45,9 +51,11 @@ const AddToCart = () => {
                         <div className=" 2xl:w-[12vw] xl:w-[17vw] lg:w-[20vw] md:w-[20vw] sm:w-[30vw] w-[25vw]  sm:p-10 md:p-5  sm:pt-0 flex items-center sm:gap-5 md:gap-2 gap-2 ">
                           <p className=" ">
                             <input
+                              onChange={handleClickCheckbox}
                               className="cursor-pointer "
                               type="checkbox"
                               id="check-box-1"
+                              checked={isChecked}
                             />
                           </p>
                           <img
@@ -83,8 +91,13 @@ const AddToCart = () => {
                               {data.attribute}
                             </p>
                             <p className="font-bold text-lg md:text-md">
-                              {" "}
-                              {data.price}
+                              {parseFloat(data.price)
+                                .toFixed(2)
+                                .toLocaleString("es-ES", {
+                                  style: "currency",
+                                  currency: "EUR",
+                                })}
+                              €
                             </p>
                             <div className="">
                               <p className="text-xs font-semibold text-[#007600]">
@@ -103,21 +116,10 @@ const AddToCart = () => {
                             <div className="sm:flex sm:items-center sm:gap-5 md:gap-2 sm:mb-5 md:flex-col md:items-start md:justify-start">
                               <div className=" pt-1 mb-5 sm:mb-0">
                                 <select
-                                  name=""
-                                  id=""
-                                  className="rounded-md border  bg-[#f0f2f2] 2xl:w-[5vw] xl:w-[5vw] lg:w-[5vw] md:w-[8vw] sm:w-[8vw] w-[22vw] p-1 text-xs  hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
+                                  onChange={handleSelectChange}
+                                  className="rounded-md border  bg-[#f0f2f2] 2xl:w-[6vw] xl:w-[6vw] lg:w-[6vw] md:w-[8vw] sm:w-[8vw] w-[22vw] p-1 text-xs  hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
                                 >
-                                  <option value="">Cant: 1</option>
-                                  <option value="">1</option>
-                                  <option value="">2</option>
-                                  <option value="">3</option>
-                                  <option value="">4</option>
-                                  <option value="">5</option>
-                                  <option value="">6</option>
-                                  <option value="">7</option>
-                                  <option value="">8</option>
-                                  <option value="">9</option>
-                                  <option value="">10</option>
+                                  {quantityOptions}
                                 </select>
                               </div>
                               <div className="sm:flex sm:gap-3 hidden lg:gap-2 md:gap-2 xl:gap-2">
@@ -138,17 +140,28 @@ const AddToCart = () => {
                       </div>
                       <div className="sm:pr-2">
                         <p className="sm:text-lg font-semibold hidden sm:block">
-                          {" "}
-                          {data.price}
+                          {(parseFloat(data.price) * selectedOption)
+                            .toFixed(2)
+                            .toLocaleString("es-ES", {
+                              style: "currency",
+                              currency: "EUR",
+                            })}
+                          €
                         </p>
                       </div>
                     </div>
                     <div className="sm:flex justify-end border-t border-slate-300 p-4 2xl:p-4 md:p-4 xl:p-4 lg:p-4 hidden">
                       <p className="sm:text-lg md:text-sm 2xl:text-lg font-semibold">
-                        Subtotal (1 product ):{" "}
+                        Subtotal ({selectedOption} product ):{" "}
                         <span className="sm:font-semibold 2xl:text-lg font-bold text-lg md:text-sm">
-                          {data.price}
-                        </span>{" "}
+                          {(parseFloat(data.price) * selectedOption)
+                            .toFixed(2)
+                            .toLocaleString("es-ES", {
+                              style: "currency",
+                              currency: "EUR",
+                            })}
+                          €
+                        </span>
                       </p>
                     </div>
                   </div>

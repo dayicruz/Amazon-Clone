@@ -1,19 +1,32 @@
 import { useNavigate } from "react-router-dom";
 
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { CartContext } from "../../contextCart/CartContext";
 import { ProductsContext } from "../../contextProducts/ProductsContext";
 
 export const AsideAddToCart = () => {
   const navigate = useNavigate();
+  const { selectedOption, isChecked } = useContext(CartContext);
 
-  const onSubmitAddToCart = () => {
-    navigate("/checkout/hjk");
-  };
-
+  const [error, setError] = useState("");
   const { item } = useParams();
 
   const { productData } = useContext(ProductsContext);
+
+    useEffect(() => {
+      if (isChecked === true) {
+        setError(""); 
+      }
+    }, [isChecked]);
+
+  const onSubmitAddToCart = () => {
+    if (isChecked === false) {
+      setError("Select at least one item to proceed to payment");
+    } else {
+      navigate("/checkout/hjk");
+    }
+  };
 
   const product = productData.find((product) => product.id === item);
 
@@ -21,9 +34,15 @@ export const AsideAddToCart = () => {
     <div className="bg-amazonclone-background   border-t border-[#ffd814] sm:border-none ">
       <div className="sm:w-[17vw] md:w-[26.5vw] 2xl:w-[17.5vw] xl:w-[17.5vw] lg:w-[26vw] bg-white p-5">
         <h3 className="sm:text-md md:text-sm font-semibold">
-          Subtotal (1 product):{" "}
+          Subtotal ({selectedOption} product):{" "}
           <span className="sm:text-md md:text-sm sm:font-semibold font-bold text-lg">
-            {product.price}
+            {(parseFloat(product.price) * selectedOption)
+              .toFixed(2)
+              .toLocaleString("es-ES", {
+                style: "currency",
+                currency: "EUR",
+              })}
+            €
           </span>{" "}
         </h3>
         <label htmlFor="" className="flex items-center gap-2 text-sm">
@@ -43,6 +62,7 @@ export const AsideAddToCart = () => {
             Checkout
           </button>
         </div>
+        <div className="text-red-600 font-semibold text-xs block">{error}</div>
       </div>
     </div>
   );

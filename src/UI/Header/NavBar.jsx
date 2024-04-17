@@ -1,32 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-
+import { ProductsContext } from "../../contextProducts/ProductsContext";
 const NavBar = () => {
+  const { productData } = useContext(ProductsContext);
+
+  const uniqueCategories = new Set();
+
+  productData.forEach((product) => {
+    uniqueCategories.add(product.category);
+  });
+
   return (
     <div>
       <div className="bg-amazonclone-light_blu p-3  gap-[10px] overflow-x-auto no-scrollbar max-w-full whitespace-nowrap text-white 2xl:gap-6 flex  text-sm  ">
         <Link to={"products/all"}>
           <h1>All Products</h1>
         </Link>
-        <Link to={`/category/books`}>
-          <h1>Books</h1>
-        </Link>
-        <Link to={`/category/shoes`}>
-          <h1>Shoes</h1>
-        </Link>
-        <Link to={"/category/fitness"}>
-          <h1>Fitness</h1>
-        </Link>
-        <Link to={"/category/mobile"}>
-          <h1>Mobile</h1>
-        </Link>
 
-        {/*   <Link to={"/category/themostsold"}>
-          <h1>The most sold</h1>
-        </Link>
-        <Link to={"/category/giftcards"}>
-          <h1>Gift Cards</h1>
-        </Link>*/}
+        {[...uniqueCategories].map((category) => (
+          <Link key={category} to={`/category/${category}`}>
+            <h1>{category[0].toUpperCase() + category.slice(1)}</h1>
+          </Link>
+        ))}
         <Link to={"/category/customerservice"}>
           <h1>Customer Service</h1>
         </Link>

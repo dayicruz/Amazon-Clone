@@ -15,7 +15,6 @@ const ProductBooks = () => {
   const { details } = useParams();
 
   const { productData } = useContext(ProductsContext);
-
   //const product = productData.find((product) => product.id === details);
 
   return (

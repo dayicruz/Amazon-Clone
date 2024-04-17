@@ -3,18 +3,23 @@ import { LuFileAudio } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router-dom";
 
 import React, { useContext } from "react";
+import { CartContext } from "../../contextCart/CartContext";
 import { ProductsContext } from "../../contextProducts/ProductsContext";
 
 const AsideDetailPage = () => {
   const navigate = useNavigate();
 
+  const { productItem } = useParams();
+
+  const { details } = useParams();
+
+  const { handleSelectChange, quantityOptions } = useContext(CartContext);
+
+  const { productData } = useContext(ProductsContext);
+
   const onSubmitBasket = () => {
     navigate(`/cart/${details}`);
   };
-  const { productItem } = useParams();
-  const { details } = useParams();
-
-  const { productData } = useContext(ProductsContext);
 
   const product = productData.find((product) => product.id === details);
 
@@ -52,7 +57,11 @@ const AsideDetailPage = () => {
           <div className="rounded border-4 sm:border-[#006e8a] border-[#f08804] p-1 mt-2 mb-5 bg-[#e7f4f5] hover:bg-white flex flex-col justify-center items-center">
             <p className="sm:text-xs text-sm font-semibold ">Soft cover</p>
             <p className="sm:text-xs text-ml font-bold text-[#b12704] sm:text-black">
-              {product.price}
+              {parseFloat(product.price).toFixed(2).toLocaleString("es-ES", {
+                style: "currency",
+                currency: "EUR",
+              })}
+              €
             </p>
             <div className="flex items-center">
               <p>
@@ -69,7 +78,11 @@ const AsideDetailPage = () => {
         {productItem !== "books" && (
           <div className="rounded border-4 sm:border-[#007600] border-[#f08804] p-5  mb-5 bg-[#e7f4f5] hover:bg-white flex flex-col justify-center items-center">
             <p className="sm:text-lg text-ml font-bold text-[#b12704] sm:text-black">
-              {product.price}
+              {parseFloat(product.price).toFixed(2).toLocaleString("es-ES", {
+                style: "currency",
+                currency: "EUR",
+              })}
+              €
             </p>
             <div className="flex items-center">
               <p>
@@ -92,12 +105,21 @@ const AsideDetailPage = () => {
         <div className="flex justify-between sm:p-3 pl-5 pt-5 ">
           <p className="sm:text-xs sm:font-bold hidden">New:</p>
           <p className="sm:text-xs text-lg text-[#b12704] font-semibold ">
-            {product.price}
+            {parseFloat(product.price).toFixed(2).toLocaleString("es-ES", {
+              style: "currency",
+              currency: "EUR",
+            })}
+            €
           </p>
         </div>
         <div className="flex flex-col sm:items-end pl-5 ">
           <p className="sm:text-xs text-sm text-[#949494] ">
-            Recommended price: €19.90{" "}
+            Recommended price:
+            {parseFloat(product.price).toFixed(2).toLocaleString("es-ES", {
+              style: "currency",
+              currency: "EUR",
+            })}
+            €
           </p>
           <p className="sm:text-xs text-sm text-[#949494]">Save: €1.00 (5%)</p>
           <p className="sm:text-xs text-sm sm:w-48 ">
@@ -117,21 +139,10 @@ const AsideDetailPage = () => {
         </div>
         <div className="sm:pl-3 sm:pr-3 pl-5 pt-1">
           <select
-            name=""
-            id=""
+            onChange={handleSelectChange}
             className="rounded-md border  bg-[#f0f2f2] 2xl:w-[15vw] sm:w-[22vw] w-[80vw] xl:w-[18vw] p-1 sm:text-xs text-sm hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
           >
-            <option value="">Cantidad: 1</option>
-            <option value="">1</option>
-            <option value="">2</option>
-            <option value="">3</option>
-            <option value="">4</option>
-            <option value="">5</option>
-            <option value="">6</option>
-            <option value="">7</option>
-            <option value="">8</option>
-            <option value="">9</option>
-            <option value="">10</option>
+            {quantityOptions}
           </select>
         </div>
         <div className="p-3 pt-0">

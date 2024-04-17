@@ -2,8 +2,12 @@ import { motion } from "framer-motion";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import ReactPaginate from "react-paginate";
 
-const PaginationButtons = ({ setCurrentPage, currentPage, totalPages }) => {
-  
+const PaginationButtons = ({
+  setCurrentPage,
+  currentPage,
+  totalPages,
+  dataSearch,
+}) => {
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected);
   };
@@ -23,8 +27,10 @@ const PaginationButtons = ({ setCurrentPage, currentPage, totalPages }) => {
       },
     },
   };
+
   const showNextButton = currentPage !== totalPages - 1;
   const showPrevButton = currentPage !== 0;
+  if (dataSearch.length < 12) return;
   return (
     <motion.div
       variants={paginationVariants}
