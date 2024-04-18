@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 const useCartStore = create(
   persist(
@@ -12,20 +12,22 @@ const useCartStore = create(
         })),
 
       removeProduct: (productId) =>
-        set((state) => ({
-          selectedProducts: state.selectedProducts.filter(
+        set((state) => {
+          const updatedProducts = state.selectedProducts.filter(
             (id) => id !== productId
-          ),
-        })),
+          );
+
+          return { selectedProducts: updatedProducts };
+        }),
 
       clearCart: () =>
-        set({
-          selectedProducts: [],
+        set(() => {
+          return { selectedProducts: [] };
         }),
     }),
     {
-      name: "cart-storage", // nombre para identificar el almacenamiento
-      storage: createJSONStorage(() => sessionStorage), // puedes cambiar esto si quieres usar sessionStorage u otra cosa
+      name: "cart-storage",
+      storage: createJSONStorage(() => sessionStorage),
     }
   )
 );

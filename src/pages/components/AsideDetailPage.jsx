@@ -2,7 +2,7 @@ import { FaCheck } from "react-icons/fa6";
 import { LuFileAudio } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router-dom";
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { CartContext } from "../../contextCart/CartContext";
 import { ProductsContext } from "../../contextProducts/ProductsContext";
 import useCartStore from "../../store/zustand/useCartStore";
@@ -13,13 +13,21 @@ const AsideDetailPage = () => {
   const { details } = useParams();
   const { handleSelectChange, quantityOptions } = useContext(CartContext);
   const { productData } = useContext(ProductsContext);
-  const enqueueProduct = useCartStore((state) => state.enqueueProduct); 
+  const enqueueProduct = useCartStore((state) => state.enqueueProduct);
   const product = productData.find((product) => product.id === details);
+  const selectedProducts = useCartStore((state) => state.selectedProducts);
+  const [error, setError] = useState("");
 
-
+  
   const onSubmitBasket = (product) => {
-    enqueueProduct(product.id);
-    navigate('/cart')
+    const productExistsInCart = selectedProducts.includes(product.id);
+
+    if (productExistsInCart) {
+      alert("Este producto ya está en el carrito.");
+    } else {
+      enqueueProduct(product.id);
+      navigate("/cart");
+    }
   };
   return (
     <div className="rounded border-4 border-slate-200  sm:w-[25vw] 2xl:w-[20vw] xl:w-[20vw] mt-10 sm:mt-0">

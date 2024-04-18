@@ -1,22 +1,33 @@
-import { default as React, useContext } from "react";
+import { default as React, useContext, useEffect, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
-import { useParams } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
-import BadgeAmazon from "./components/BadgeAmazon";
 
 import { CartContext } from "../contextCart/CartContext";
 import useCartStore from "../store/zustand/useCartStore";
 
 const AddToCart = () => {
-  const { item } = useParams();
-  const selectedProducts = useCartStore((state) => state.selectedProducts);
   const { productData } = useContext(ProductsContext);
+  const [updatedSelectedProductsData, setUpdatedSelectedProductsData] =
+    useState([]);
+  const selectedProducts = useCartStore((state) => state.selectedProducts);
+  const { clearCart, removeProduct } = useCartStore();
 
-  const selectedProductsData = selectedProducts.map((productId) =>
-    productData.find((product) => product.id === productId)
-  );
+  useEffect(() => {
+    if (productData && productData.length > 0) {
+      const updatedData = selectedProducts.map((productId) =>
+        productData.find((product) => product.id === productId)
+      );
+      setUpdatedSelectedProductsData(updatedData);
+    }
+  }, [selectedProducts, productData]);
 
-  console.log(selectedProductsData);
+  const handleRemoveProduct = (productId) => {
+    removeProduct(productId);
+  };
+
+  const handleClearCart = () => {
+    clearCart();
+  };
 
   const {
     selectedOption,
@@ -25,7 +36,7 @@ const AddToCart = () => {
     handleClickCheckbox,
     isChecked,
   } = useContext(CartContext);
-
+  console.log(updatedSelectedProductsData);
   return (
     <div>
       <div className="flex flex-col sm:flex-row sm:bg-amazonclone-background sm:p-32 md:p-16 sm:gap-5 md:gap-2 2xl:gap-5  sm:m-auto">
@@ -38,7 +49,7 @@ const AddToCart = () => {
                 </p>
 
                 <p className="sm:text-xs sm:text-[#007185] sm:font-medium hidden sm:block">
-                  Deselect all items
+                  <button onClick={handleClearCart}>Delete all items</button>
                 </p>
               </div>
               <div className="sm:flex sm:justify-end sm:pr-3 mb-2">
@@ -47,7 +58,7 @@ const AddToCart = () => {
                 </p>
               </div>
             </div>
-            {selectedProductsData.map((product) => (
+            {updatedSelectedProductsData.map((product) => (
               <div key={product.id}>
                 <div className="sm:flex sm:justify-between border-b p-4 border-slate-300 ">
                   <div className="sm:flex gap-10 sm:gap-4 lg:gap-5 flex ">
@@ -63,7 +74,6 @@ const AddToCart = () => {
                       </p>
                       <img
                         src={product.image}
-                        /*   src="../../public/images/product_1.jpg" */
                         alt=""
                         className="object-contain"
                       />
@@ -75,25 +85,27 @@ const AddToCart = () => {
                             {product.title}
                           </h3>
                         </div>
-                        <div className="sm:flex sm:gap-4">
-                          <p className="sm:text-sm text-xs">
-                            by{" "}
-                            <span className="text-[#008296] sm:text-sm text-xs ">
-                              {product.author}
-                            </span>{" "}
-                            <span className="sm:text-sm text-xs text-[#949494]">
-                              (Autor)
-                            </span>{" "}
-                          </p>
-                        </div>
-                        <div className="hidden">
-                          <BadgeAmazon />
-                        </div>
+                        {product.author && (
+                          <div className="sm:flex sm:gap-4">
+                            <p className="sm:text-sm text-xs">
+                              by{" "}
+                              <span className="text-[#008296] sm:text-sm text-xs ">
+                                {product.author}
+                              </span>{" "}
+                              <span className="sm:text-sm text-xs text-[#949494]">
+                                (Autor)
+                              </span>{" "}
+                            </p>
+                          </div>
+                        )}
 
-                        <p className="text-xs font-semibold ">
-                          {" "}
-                          {/* {product.attribute} */}attribute
-                        </p>
+                        {product.attribute && (
+                          <p className="text-xs font-semibold ">
+                            {" "}
+                            {product.attribute}
+                          </p>
+                        )}
+
                         <p className="font-bold text-lg md:text-md">
                           {parseFloat(product.price)
                             .toFixed(2)
@@ -128,7 +140,12 @@ const AddToCart = () => {
                           </div>
                           <div className="sm:flex sm:gap-3 hidden lg:gap-2 md:gap-2 xl:gap-2">
                             <p className="border-r border-slate-300 pr-3 md:pr-2 border-l  pl-3 md:pl-1 text-xs text-[#008296]">
-                              <button> Eliminate</button>
+                              <button
+                                onClick={() => handleRemoveProduct(product.id)}
+                              >
+                                {" "}
+                                Eliminate
+                              </button>
                             </p>
                             <p className="md:text-center  border-r border-slate-300 pr-3 md:pr-2 text-xs text-[#008296]">
                               Save for later
