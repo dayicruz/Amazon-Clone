@@ -5,24 +5,22 @@ import { useNavigate, useParams } from "react-router-dom";
 import React, { useContext } from "react";
 import { CartContext } from "../../contextCart/CartContext";
 import { ProductsContext } from "../../contextProducts/ProductsContext";
+import useCartStore from "../../store/zustand/useCartStore";
 
 const AsideDetailPage = () => {
   const navigate = useNavigate();
-
   const { productItem } = useParams();
-
   const { details } = useParams();
-
   const { handleSelectChange, quantityOptions } = useContext(CartContext);
-
   const { productData } = useContext(ProductsContext);
-
-  const onSubmitBasket = () => {
-    navigate(`/cart/${details}`);
-  };
-
+  const enqueueProduct = useCartStore((state) => state.enqueueProduct); 
   const product = productData.find((product) => product.id === details);
 
+
+  const onSubmitBasket = (product) => {
+    enqueueProduct(product.id);
+    navigate('/cart')
+  };
   return (
     <div className="rounded border-4 border-slate-200  sm:w-[25vw] 2xl:w-[20vw] xl:w-[20vw] mt-10 sm:mt-0">
       <div className="flex sm:gap-2 p-3 ">
@@ -147,7 +145,7 @@ const AsideDetailPage = () => {
         </div>
         <div className="p-3 pt-0">
           <button
-            onClick={onSubmitBasket}
+            onClick={() => onSubmitBasket(product)}
             className="rounded-xl border-2 border-[#ffd814] bg-[#ffd814] sm:text-xs text-sm p-1 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[18vw] hover:bg-[#ffd814df]"
             type="submit"
           >

@@ -25,48 +25,46 @@ const AppRoutet = () => {
   };
 
   return (
-    <ProductsProvider> 
+    <ProductsProvider>
       <CartProvider>
-      <Wrapper>
-        <Header />
-        <Routes>
-          <Route exact path="/" element={<HomePage />} />
+        <Wrapper>
+          <Header />
+          <Routes>
+            <Route exact path="/" element={<HomePage />} />
 
-          <Route path="/category/:productItem" element={<ProductsPage />} />
-          <Route
-            path="/books/:productItem/:details"
-            element={<ProductBooks />}
-          />
+            <Route path="/category/:productItem" element={<ProductsPage />} />
+            <Route
+              path="/books/:productItem/:details"
+              element={<ProductBooks />}
+            />
 
-          <Route
-            path="/shoes/:productItem/:details"
-            element={<ProductShoes />}
-          />
+            <Route
+              path="/shoes/:productItem/:details"
+              element={<ProductShoes />}
+            />
 
-          <Route
-            path="/fitness/:productItem/:details"
-            element={<ProductFitness />}
-          />
+            <Route
+              path="/fitness/:productItem/:details"
+              element={<ProductFitness />}
+            />
 
-          <Route
-            path="/mobile/:productItem/:details"
-            element={<ProductMobile />}
-          />
+            <Route
+              path="/mobile/:productItem/:details"
+              element={<ProductMobile />}
+            />
 
-          <Route path="/products/:all" element={<AllProductsPages />} />
+            <Route path="/products/:all" element={<AllProductsPages />} />
 
-         
-            <Route path="/cart/:item" element={<AddToCart />} />
+            <Route path="/cart" element={<AddToCart />} />
             <Route path="/checkout/:productId" element={<CheckoutPage />} />
-         
 
-          <Route element={<Search />} />
+            <Route element={<Search />} />
 
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
-        <Footer />
-      </Wrapper>
- </CartProvider>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+          <Footer />
+        </Wrapper>
+      </CartProvider>
     </ProductsProvider>
   );
 };

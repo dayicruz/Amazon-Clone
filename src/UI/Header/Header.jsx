@@ -65,7 +65,9 @@ const Header = () => {
                 <div className="text-sm xl:text-base font-bold">& Orders</div>
               </div>
               <div className="pr-3 pl-3 hidden sm:block">
-                <MdOutlineShoppingCart className="xl:w-[30px] xl:h-[30px] w-[25px] h-[25px]" />
+                <Link to={"/cart"}>
+                  <MdOutlineShoppingCart className="xl:w-[30px] xl:h-[30px] w-[25px] h-[25px]" />
+                </Link>
               </div>
             </div>
           </div>
