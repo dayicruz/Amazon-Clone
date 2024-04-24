@@ -1,15 +1,18 @@
 import "animate.css";
+import { GiShoppingCart } from "react-icons/gi";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { startLogout } from "../../store/auth/thunks";
+import useCartStore from "../../store/zustand/useCartStore";
 import NavBar from "./NavBar";
 import Search from "./Search";
 const Header = () => {
   const location = useLocation();
   const { status, displayName } = useSelector((state) => state.auth);
-
+  const { selectedProductIDs } = useCartStore();
   const dispatch = useDispatch();
+
   const onLogout = () => {
     dispatch(startLogout());
   };
@@ -64,9 +67,13 @@ const Header = () => {
                 <div className="text-xs xl:text-sm">Returns</div>
                 <div className="text-sm xl:text-base font-bold">& Orders</div>
               </div>
-              <div className="pr-3 pl-3 hidden sm:block">
+              <div className=" sm:flex flex-col  items-center pr-3 pl-3 hidden ">
+                <p className="text-sm text-[#ff8732]">
+                  {selectedProductIDs.length}
+                </p>
+
                 <Link to={"/cart"}>
-                  <MdOutlineShoppingCart className="xl:w-[30px] xl:h-[30px] w-[25px] h-[25px]" />
+                  <GiShoppingCart className="xl:w-[30px] xl:h-[30px] w-[25px] h-[25px]" />
                 </Link>
               </div>
             </div>
