@@ -16,11 +16,8 @@ const AsideDetailPage = () => {
     (state) => state.enqueueProductToSelectedProductIDs
   );
   const product = productData.find((product) => product.id === details);
-  const isChecked = useCartStore((state) => state.isChecked);
-  const setIsCheckedTrue = useCartStore((state) => state.setIsCheckedTrue);
-  const selectedProductIDs = useCartStore((state) => state.selectedProductIDs);
   const quantityOptions = [];
-  const [selectedOption, setSelectedOption] = useState(1);
+  const [setSelectedOption] = useState(1);
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -37,7 +34,7 @@ const AsideDetailPage = () => {
   const onSubmitBasket = (product) => {
     console.log(product);
     enqueueProduct(product);
-    setIsCheckedTrue();
+
     navigate("/cart");
   };
 

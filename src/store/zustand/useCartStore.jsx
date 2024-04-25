@@ -5,35 +5,12 @@ const useCartStore = create(
   persist(
     (set) => ({
       basketProduct: [],
-      selectQuantity: 1,
-      productQuantities: {},
-      selectedProducts: {},
-      selectedProductIDs: [],
-      newSelectedProductIDs: [],
-      selectedOption: 1,
-      isChecked: true,
-      initialSelectedOption: 1,
-
-      handleSelectChange: (productId, event) => {
-        const productValue = Number(event.target.value);
-
-        set((state) => ({
-          selectQuantity: productValue,
-          productQuantities: {
-            ...state.productQuantities,
-            [productId]: productValue,
-          },
-          selectedOptions: {
-            ...state.selectedOptions,
-            [productId]: productValue,
-          },
-        }));
-      },
 
       enqueueProduct: (product) =>
         set((state) => ({
-        
-          basketProduct: [...state.basketProduct, product],
+          basketProduct: [product],
+
+          /* basketProduct: [...state.basketProduct, product], */
           /* selectedProducts: {
             ...state.selectedProducts,
             [productId]: (state.selectedProducts[productId] || 0) + 1,
@@ -54,35 +31,10 @@ const useCartStore = create(
           };
         }),
 
-      clearCart: () =>
+      /*   clearCart: () =>
         set(() => {
-          return { selectedProducts: {}, selectedProductIDs: [] };
-        }),
-
-      handleCheckboxChange: (productId) => {
-        set((state) => {
-          const count = state.selectedProductIDs.filter(
-            (id) => id === productId
-          ).length;
-          const selectedProductIDs = [...state.selectedProductIDs];
-          for (let i = 0; i < count + 1; i++) {
-            selectedProductIDs.push(productId);
-          }
-          return { selectedProductIDs };
-        });
-      },
-
-      handleClickCheckbox: (productId) => {
-        set((state) => ({
-          selectedProductID: productId,
-        }));
-      },
-
-      setInitialSelectedOption: (value) =>
-        set(() => ({
-          initialSelectedOption: value,
-        })),
-      setIsCheckedTrue: () => set({ isChecked: true }),
+          return { basketProduct: [] };
+        }), */
     }),
 
     {

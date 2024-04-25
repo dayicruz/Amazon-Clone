@@ -1,47 +1,16 @@
-import { default as React, useContext, useEffect, useState } from "react";
+import { default as React } from "react";
 import { FaCheck } from "react-icons/fa6";
-import { ProductsContext } from "../contextProducts/ProductsContext";
 
 import useCartStore from "../store/zustand/useCartStore";
 import { AsideAddToCart } from "./components/AsideAddToCart";
 
 const AddToCart = () => {
-  const { productData } = useContext(ProductsContext);
-  const [selectedProductsData, setSelectedProductsData] = useState([]);
-  const selectedProducts = useCartStore((state) => state.selectedProducts);
-  const { clearCart, basketProduct, enqueueProduct } = useCartStore();
-  const quantityOptions = [];
-  const [productQuantities, setProductQuantities] = useState({});
-  const [totalSelectedProducts, setTotalSelectedProducts] = useState(0);
+  const { clearCart, basketProduct } = useCartStore();
+
   console.log(basketProduct);
-  useEffect(() => {
-    if (productData && productData.length > 0) {
-      const updatedSelectedProductsData = [];
-
-      for (const productId in selectedProducts) {
-        if (selectedProducts.hasOwnProperty(productId)) {
-          const product = productData.find((p) => p.id === productId);
-          if (product) {
-            updatedSelectedProductsData.push(product);
-          }
-        }
-      }
-
-      setSelectedProductsData(updatedSelectedProductsData);
-    }
-  }, [selectedProducts, productData]);
-
-  /* for (let i = 1; i <= 10; i++) {
-    quantityOptions.push(
-      <option key={i} value={i}>
-        Cant: {i}
-      </option>
-    );
-  }*/
 
   const handleClearCart = () => {
     clearCart();
-    console.log(selectedProductIDs);
   };
 
   return (
@@ -170,16 +139,14 @@ const AddToCart = () => {
                         <div className="sm:flex sm:items-center sm:gap-5 md:gap-2 sm:mb-5 md:flex-col md:items-start md:justify-start">
                           <div className=" pt-1 mb-5 sm:mb-0">
                             <select
-                              value={productQuantities[product.id]}
+                              /*  value={} */
                               onChange={(event) =>
                                 handleSelectChange(product.id, event)
                               }
                               className="rounded-md border  bg-[#f0f2f2] 2xl:w-[6vw] xl:w-[6vw] lg:w-[6vw] md:w-[8vw] sm:w-[8vw] w-[22vw] p-1 text-xs  hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
                             >
-                              {quantityOptions}
+                              {/* quantityOptions */}
                             </select>
-
-                            {console.log(productQuantities[product.id])}
                           </div>
                           <div className="sm:flex sm:gap-3 hidden lg:gap-2 md:gap-2 xl:gap-2">
                             <p className="border-r border-slate-300 pr-3 md:pr-2 border-l  pl-3 md:pl-1 text-xs text-[#008296]">
@@ -247,9 +214,7 @@ const AddToCart = () => {
         </div>
 
         <AsideAddToCart
-          /* totalPrice={totalPrice} */
-          selectedProductsData={selectedProductsData}
-          totalSelectedProducts={totalSelectedProducts}
+        /* totalPrice={totalPrice} */
         />
       </div>
     </div>
