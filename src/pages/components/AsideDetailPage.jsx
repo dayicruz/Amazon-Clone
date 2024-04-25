@@ -12,27 +12,23 @@ const AsideDetailPage = () => {
   const { details } = useParams();
   const { productData } = useContext(ProductsContext);
   const enqueueProduct = useCartStore((state) => state.enqueueProduct);
-  const enqueueProductToSelectedProductIDs = useCartStore(
-    (state) => state.enqueueProductToSelectedProductIDs
-  );
+
   const product = productData.find((product) => product.id === details);
-  const quantityOptions = [];
-  const [setSelectedOption] = useState(1);
+
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
-  for (let i = 1; i <= 10; i++) {
+  /*  for (let i = 1; i <= 10; i++) {
     quantityOptions.push(
       <option key={i} value={i}>
         Cant: {i}
       </option>
     );
-  }
+  } */
 
   const onSubmitBasket = (product) => {
-    console.log(product);
     enqueueProduct(product);
 
     navigate("/cart");
@@ -157,14 +153,14 @@ const AsideDetailPage = () => {
             onChange={handleSelectChange}
             className="rounded-md border  bg-[#f0f2f2] 2xl:w-[15vw] sm:w-[22vw] w-[80vw] xl:w-[18vw] p-1 sm:text-xs text-sm hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
           >
-            {quantityOptions}
+            {5}
           </select>
         </div>
         <div className="p-3 pt-0">
           <button
-            onClick={() => {
-              onSubmitBasket(product), console.log(product);
-            }}
+            onClick={() => 
+              onSubmitBasket(product)
+            }
             className="rounded-xl border-2 border-[#ffd814] bg-[#ffd814] sm:text-xs text-sm p-1 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[18vw] hover:bg-[#ffd814df]"
             type="submit"
           >
