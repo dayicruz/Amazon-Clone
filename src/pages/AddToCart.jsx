@@ -5,8 +5,6 @@ import useCartStore from "../store/zustand/useCartStore";
 import { AsideAddToCart } from "./components/AsideAddToCart";
 
 const AddToCart = () => {
-  const { quantity, totalPrice } = useCartStore();
-
   const selectedProducts = useCartStore((state) => state.selectedProducts);
   const removeItem = useCartStore((state) => state.removeItem);
 
@@ -121,7 +119,7 @@ const AddToCart = () => {
                             {product.attribute}
                           </p>
                         )}
-
+                        {console.log(typeof product.quantity)}
                         <p className="font-bold text-lg md:text-md">
                           {/* {parseFloat(product.price)
                             .toFixed(2)
@@ -147,15 +145,16 @@ const AddToCart = () => {
                         </div>
                         <div className="sm:flex sm:items-center sm:gap-5 md:gap-2 sm:mb-5 md:flex-col md:items-start md:justify-start">
                           <div className=" pt-1 mb-5 sm:mb-0">
-                            <select
-                              value={quantity}
-                              onChange={(event) =>
-                                handleSelectChange(item.product.id, event)
-                              }
+                            <input
+                              type="number"
+                              value={product.quantity}
+                              min="1"
+                              max="10"
+                              onChange={(event) => setQtt(product.quantity)}
                               className="rounded-md border  bg-[#f0f2f2] 2xl:w-[6vw] xl:w-[6vw] lg:w-[6vw] md:w-[8vw] sm:w-[8vw] w-[22vw] p-1 text-xs  hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
                             >
                               {/* quantityOptions */}
-                            </select>
+                            </input>
                           </div>
                           <div className="sm:flex sm:gap-3 hidden lg:gap-2 md:gap-2 xl:gap-2">
                             <p className="border-r border-slate-300 pr-3 md:pr-2 border-l  pl-3 md:pl-1 text-xs text-[#008296]">
