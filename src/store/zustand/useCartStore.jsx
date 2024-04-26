@@ -9,11 +9,13 @@ const useCartStore = create(
       addToCart: (product, qtt) => {
         let { selectedProducts } = get();
         console.log(qtt);
+
         let existedProduct = selectedProducts.find(
           (item) => item.id === product.id
         );
+
         if (existedProduct) {
-          existedProduct.quantity++;
+          existedProduct.quantity += qtt;
           return;
         }
 
