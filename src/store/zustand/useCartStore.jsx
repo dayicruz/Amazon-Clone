@@ -6,9 +6,9 @@ const useCartStore = create(
     (set, get) => ({
       selectedProducts: [],
 
-      addToCart: (product) => {
+      addToCart: (product, qtt) => {
         let { selectedProducts } = get();
-
+        console.log(qtt);
         let existedProduct = selectedProducts.find(
           (item) => item.id === product.id
         );
@@ -17,7 +17,7 @@ const useCartStore = create(
           return;
         }
 
-        let newProduct = { ...product, quantity: 1 };
+        let newProduct = { ...product, quantity: qtt };
         console.log(selectedProducts);
         set((state) => ({
           selectedProducts: [...state.selectedProducts, newProduct],
