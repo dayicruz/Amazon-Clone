@@ -2,7 +2,7 @@ import { FaCheck } from "react-icons/fa6";
 import { LuFileAudio } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router-dom";
 
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ProductsContext } from "../../contextProducts/ProductsContext";
 import useCartStore from "../../store/zustand/useCartStore";
 
@@ -11,10 +11,9 @@ const AsideDetailPage = () => {
   const { productItem } = useParams();
   const { details } = useParams();
   const { productData } = useContext(ProductsContext);
-  const enqueueProduct = useCartStore((state) => state.enqueueProduct);
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const product = productData.find((product) => product.id === details);
-
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
@@ -29,8 +28,7 @@ const AsideDetailPage = () => {
   } */
 
   const onSubmitBasket = (product) => {
-    enqueueProduct(product);
-
+    addToCart(product);
     navigate("/cart");
   };
 
@@ -158,9 +156,7 @@ const AsideDetailPage = () => {
         </div>
         <div className="p-3 pt-0">
           <button
-            onClick={() => 
-              onSubmitBasket(product)
-            }
+            onClick={() => onSubmitBasket(product)}
             className="rounded-xl border-2 border-[#ffd814] bg-[#ffd814] sm:text-xs text-sm p-1 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[18vw] hover:bg-[#ffd814df]"
             type="submit"
           >

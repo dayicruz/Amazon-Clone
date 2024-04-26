@@ -3,38 +3,41 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 const useCartStore = create(
   persist(
-    (set) => ({
-      basketProduct: [],
+    (set, get) => ({
+      selectedProducts: [],
 
-      enqueueProduct: (product) =>
+      addToCart: (product) => {
+        let { selectedProducts } = get();
+
+        let existedProduct = selectedProducts.find(
+          (item) => item.id === product.id
+        );
+        if (existedProduct) {
+          existedProduct.quantity++;
+          return;
+        }
+
+        let newProduct = { ...product, quantity: 1 };
+        console.log(selectedProducts);
         set((state) => ({
-          basketProduct: [product],
+          selectedProducts: [...state.selectedProducts, newProduct],
+        }));
+      },
 
-          /* basketProduct: [...state.basketProduct, product], */
-          /* selectedProducts: {
-            ...state.selectedProducts,
-            [productId]: (state.selectedProducts[productId] || 0) + 1,
-          },
-          selectedProductIDs: [...state.selectedProductIDs, productId],*/
-        })),
+      removeItem: (productId) => {
+        const { selectedProducts } = get();
 
-      removeProduct: (productId) =>
-        set((state) => {
-          const updatedProducts = { ...state.selectedProducts };
-          delete updatedProducts[productId];
-          const updatedSelectedProductIDs = state.selectedProductIDs.filter(
-            (id) => id !== productId
-          );
-          return {
-            selectedProducts: updatedProducts,
-            selectedProductIDs: updatedSelectedProductIDs,
-          };
-        }),
+        set({
+          selectedProducts: selectedProducts.filter(
+            (item) => item.product.id !== productId
+          ),
+        });
+      },
 
-      /*   clearCart: () =>
+      clearCart: () =>
         set(() => {
-          return { basketProduct: [] };
-        }), */
+          return { selectedProducts: [] };
+        }),
     }),
 
     {
