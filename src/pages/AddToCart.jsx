@@ -1,4 +1,4 @@
-import { default as React } from "react";
+import { default as React, useState } from "react";
 import { FaCheck } from "react-icons/fa6";
 
 import useCartStore from "../store/zustand/useCartStore";
@@ -7,11 +7,20 @@ import { AsideAddToCart } from "./components/AsideAddToCart";
 const AddToCart = () => {
   const selectedProducts = useCartStore((state) => state.selectedProducts);
   const removeItem = useCartStore((state) => state.removeItem);
-
   const clearCart = useCartStore((state) => state.clearCart);
+  const [products, setProducts] = useState(selectedProducts);
 
-  console.log(selectedProducts);
+  const handleChange = (event, productId) => {
+    const newProduct = products.map((product) => {
+      if (product.id === productId) {
+        product.quantity = +event.target.value;
+      }
+      return product;
+    });
 
+    setProducts(newProduct);
+  };
+  console.log(products);
   const handleRemoveProduct = (productId) => {
     removeItem(productId);
   };
@@ -119,7 +128,7 @@ const AddToCart = () => {
                             {product.attribute}
                           </p>
                         )}
-                        {console.log(typeof product.quantity)}
+
                         <p className="font-bold text-lg md:text-md">
                           {/* {parseFloat(product.price)
                             .toFixed(2)
@@ -149,19 +158,16 @@ const AddToCart = () => {
                               type="number"
                               value={product.quantity}
                               min="1"
-                              max="10"
-                              onChange={(event) => setQtt(product.quantity)}
+                              onChange={(event) =>
+                                handleChange(event, product.id)
+                              }
                               className="rounded-md border  bg-[#f0f2f2] 2xl:w-[6vw] xl:w-[6vw] lg:w-[6vw] md:w-[8vw] sm:w-[8vw] w-[22vw] p-1 text-xs  hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
-                            >
-                              {/* quantityOptions */}
-                            </input>
+                            ></input>
                           </div>
                           <div className="sm:flex sm:gap-3 hidden lg:gap-2 md:gap-2 xl:gap-2">
                             <p className="border-r border-slate-300 pr-3 md:pr-2 border-l  pl-3 md:pl-1 text-xs text-[#008296]">
                               <button
-                                onClick={() =>
-                                  handleRemoveProduct(item.product.id)
-                                }
+                                onClick={() => handleRemoveProduct(product.id)}
                               >
                                 {" "}
                                 Eliminate

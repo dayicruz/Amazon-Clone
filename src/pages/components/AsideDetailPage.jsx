@@ -15,14 +15,6 @@ const AsideDetailPage = () => {
   const [qtt, setQtt] = useState(1);
   const product = productData.find((product) => product.id === details);
 
-  /*  for (let i = 1; i <= 10; i++) {
-    quantityOptions.push(
-      <option key={i} value={i}>
-        Cant: {i}
-      </option>
-    );
-  } */
-
   const onSubmitBasket = (product) => {
     console.log(qtt);
     addToCart(product, qtt);
@@ -148,7 +140,6 @@ const AsideDetailPage = () => {
             type="number"
             value={qtt}
             min="1"
-            max="10"
             onChange={(event) => setQtt(+event.target.value)}
             className="rounded-md border  bg-[#f0f2f2] 2xl:w-[15vw] sm:w-[22vw] w-[80vw] xl:w-[18vw] p-1 sm:text-xs text-sm hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
           ></input>
