@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import useCartStore from "../store/zustand/useCartStore";
 import AsideCheckoutPage from "./components/AsideCheckoutPage";
 const CheckoutPage = () => {
   const [country, setCountry] = useState("");
   const [fullName, setFullName] = useState("");
   const [addressLine1, setAddressLine1] = useState("");
-  const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [postalCode, setPostalCode] = useState("");
@@ -16,8 +16,28 @@ const CheckoutPage = () => {
   const [cardDueDate, setCardDueDate] = useState("");
   const [cardSecurityCode, setCardSecurityCode] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const addToAddress = useCartStore((state) => state.addToAddress);
+
+  const selectedProducts = useCartStore((state) => state.selectedProducts);
+
+  const productsInTheBasket = selectedProducts.filter((product) => {
+    if (product.isChecked === true) {
+      return product;
+    }
+  });
+
+  const totalItems = productsInTheBasket.reduce((accumulator, item) => {
+    return (accumulator += item.quantity);
+  }, 0);
+
+  /*  const addToAddress = (event) => {
+    event.preventDefault();
+    console.log(country);
+  }; */
+
+  const handleAddYourCard = (event) => {
+    event.preventDefault();
+    console.log(cardNumber);
   };
 
   const countries = [
@@ -221,7 +241,8 @@ const CheckoutPage = () => {
     <div>
       <div className="bg-[#f0f2f2] p-5 text-center border-b border-slate-400">
         <p className="text-2xl font-semibold">
-          Checkout ( <span className="text-[#008296] text-xl">1 item</span> )
+          Checkout ({" "}
+          <span className="text-[#008296] text-xl">{totalItems} item</span> )
         </p>
       </div>
       <div className="sm:max-w-[900px] sm:m-auto mt-3 mb-10 pl-4 pr-4 ">
@@ -235,7 +256,20 @@ const CheckoutPage = () => {
             <p className="text-2xl font-semibold border-b border-slate-400 ">
               Add a new address
             </p>
-            <form onSubmit={handleSubmit}>
+            <form
+              onSubmit={(event) =>
+                addToAddress(
+                  event,
+                  country,
+                  fullName,
+                  addressLine1,
+                  city,
+                  state,
+                  postalCode,
+                  phoneNumber
+                )
+              }
+            >
               <div className="mb-2 mt-4 ">
                 <label htmlFor="country" className="block font-medium text-sm">
                   Country or region
@@ -361,7 +395,7 @@ const CheckoutPage = () => {
               </button>
             </form>
 
-            <div>
+            <form onSubmit={handleAddYourCard}>
               <div>
                 <div className="border-b border-t border-slate-400 pb-2 pt-2 mt-5">
                   <p className="text-xl font-semibold ">2 Payment method</p>
@@ -473,7 +507,7 @@ const CheckoutPage = () => {
                   Add your card
                 </button>
               </div>
-            </div>
+            </form>
           </div>
           <div>
             <AsideCheckoutPage />

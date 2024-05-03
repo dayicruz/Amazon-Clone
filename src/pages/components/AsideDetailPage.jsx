@@ -14,10 +14,10 @@ const AsideDetailPage = () => {
   const addToCart = useCartStore((state) => state.addToCart);
   const [qtt, setQtt] = useState(1);
   const product = productData.find((product) => product.id === details);
+  const isChecked = true;
 
   const onSubmitBasket = (product) => {
-    console.log(qtt);
-    addToCart(product, qtt);
+    addToCart(product, qtt, isChecked);
     navigate("/cart");
   };
 

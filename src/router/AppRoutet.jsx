@@ -58,6 +58,8 @@ const AppRoutet = () => {
 
           <Route element={<Search />} />
 
+          <Route element={<addressComplet />} />
+
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />

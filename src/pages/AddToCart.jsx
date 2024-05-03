@@ -1,6 +1,7 @@
-import { default as React, useState } from "react";
+import classNames from "classnames";
+import { default as React } from "react";
 import { FaCheck } from "react-icons/fa6";
-
+import { Link } from "react-router-dom";
 import useCartStore from "../store/zustand/useCartStore";
 import { AsideAddToCart } from "./components/AsideAddToCart";
 
@@ -8,19 +9,19 @@ const AddToCart = () => {
   const selectedProducts = useCartStore((state) => state.selectedProducts);
   const removeItem = useCartStore((state) => state.removeItem);
   const clearCart = useCartStore((state) => state.clearCart);
-  const [products, setProducts] = useState(selectedProducts);
+  const updateProduct = useCartStore((state) => state.updateProduct);
+  const handleCheckboxToggle = useCartStore(
+    (state) => state.handleCheckboxToggle
+  );
 
-  const handleChange = (event, productId) => {
-    const newProduct = products.map((product) => {
-      if (product.id === productId) {
-        product.quantity = +event.target.value;
-      }
-      return product;
-    });
+  const totalPrice = selectedProducts.reduce((acc, item) => {
+    return acc + item.price * item.quantity;
+  }, 0);
 
-    setProducts(newProduct);
-  };
-  console.log(products);
+  const totalItems = selectedProducts.reduce((accumulator, item) => {
+    return (accumulator += item.quantity);
+  }, 0);
+
   const handleRemoveProduct = (productId) => {
     removeItem(productId);
   };
@@ -35,14 +36,15 @@ const AddToCart = () => {
         <div className=" sm:w-[60vw] p-5 sm:p-0">
           <div className="  bg-white ">
             <div
-              className="sm:border-b sm:border-slate-300 mb-5  border-b border-[#ffd814]" /*`${
-                Object.keys(selectedProducts).length > 0
-                  ? "sm:border-b sm:border-slate-300 mb-5  border-b border-[#ffd814]"
-                  : " border-none"
-              } `*/
+              className={classNames(
+                "sm:border-b sm:border-slate-300 mb-5  border-b border-[#ffd814]",
+                {
+                  " border-none": selectedProducts.length === 0,
+                }
+              )}
             >
-              <div className="sm:pl-10 sm:pt-5 flex sm:block gap-4 sm:gap-0">
-                {/*{Object.keys(selectedProducts).length === 0 ? (
+              <div className={`sm:pl-10 sm:pt-5 flex sm:block gap-4 sm:gap-0`}>
+                {selectedProducts.length === 0 ? (
                   <div className="p-6 flex flex-col gap-3">
                     <p className="sm:text-2xl text-lg sm:font-semibold text-[#313030] font-semibold">
                       Your Amazon basket is empty.
@@ -59,31 +61,33 @@ const AddToCart = () => {
                     </p>
                   </div>
                 ) : (
-                  <>*/}
-                <p className="sm:text-xl text-lg sm:font-semibold text-[#313030] font-semibold">
-                  Basket
-                </p>
-                <p className="sm:text-xs sm:text-[#007185] sm:font-medium hidden sm:block">
-                  <button onClick={handleClearCart}>Delete all items</button>
-                </p>
+                  <>
+                    <p className="sm:text-xl text-lg sm:font-semibold text-[#313030] font-semibold">
+                      Basket
+                    </p>
+                    <p className="sm:text-xs sm:text-[#007185] sm:font-medium hidden sm:block">
+                      <button onClick={handleClearCart}>
+                        Delete all items
+                      </button>
+                    </p>
 
-                <div className="sm:flex sm:justify-end sm:pr-3 mb-2">
-                  <p className="sm:text-xs sm:font-semibold sm:text-[#949494] hidden sm:block">
-                    Price
-                  </p>
-                </div>
-                {/* </>
-                )}*/}
+                    <div className="sm:flex sm:justify-end sm:pr-3 mb-2">
+                      <p className="sm:text-xs sm:font-semibold sm:text-[#949494] hidden sm:block">
+                        Price
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
             {selectedProducts.map((product) => (
               <div key={product.id}>
                 <div
-                  className="sm:flex sm:justify-between border-b p-4 border-slate-300" /*` ${
-                    Object.keys(selectedProducts).length > 0
+                  className={`${
+                    selectedProducts.length > 0
                       ? "sm:flex sm:justify-between border-b p-4 border-slate-300"
                       : "sm:flex sm:justify-between border-none"
-                  }  `*/
+                  }  `}
                 >
                   <div className="sm:flex gap-10 sm:gap-4 lg:gap-5 flex ">
                     <div className=" 2xl:w-[12vw] xl:w-[17vw] lg:w-[20vw] md:w-[20vw] sm:w-[30vw] w-[25vw]  sm:p-10 md:p-5  sm:pt-0 flex items-center sm:gap-5 md:gap-2 gap-2 ">
@@ -91,8 +95,8 @@ const AddToCart = () => {
                         className="cursor-pointer "
                         type="checkbox"
                         id={`check-box-${product.id}`}
-                        /*  checked={selectedProductIDs.includes(product.id)}
-                        onChange={() => handleCheckboxToggle(product.id)} */
+                        checked={product.isChecked}
+                        onChange={() => handleCheckboxToggle(product.id)}
                       />
 
                       <img
@@ -130,12 +134,12 @@ const AddToCart = () => {
                         )}
 
                         <p className="font-bold text-lg md:text-md">
-                          {/* {parseFloat(product.price)
+                          {parseFloat(product.price)
                             .toFixed(2)
                             .toLocaleString("es-ES", {
                               style: "currency",
                               currency: "EUR",
-                            })} */}
+                            })}
                           €
                         </p>
                         <div className="">
@@ -159,7 +163,7 @@ const AddToCart = () => {
                               value={product.quantity}
                               min="1"
                               onChange={(event) =>
-                                handleChange(event, product.id)
+                                updateProduct(+event.target.value, product.id)
                               }
                               className="rounded-md border  bg-[#f0f2f2] 2xl:w-[6vw] xl:w-[6vw] lg:w-[6vw] md:w-[8vw] sm:w-[8vw] w-[22vw] p-1 text-xs  hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
                             ></input>
@@ -180,58 +184,32 @@ const AddToCart = () => {
                   </div>
                   <div className="flex flex-col justify-between sm:pr-2">
                     <p className="text-end sm:text-lg font-semibold hidden sm:block">
-                      {/*  {selectedOptions[product.id]
-                        ? (
-                            parseFloat(product.price) *
-                            selectedOptions[product.id]
-                          )
-                            .toFixed(2)
-                            .toLocaleString("es-ES", {
-                              style: "currency",
-                              currency: "EUR",
-                            })
-                        : parseFloat(product.price)
-                            .toFixed(2)
-                            .toLocaleString("es-ES", {
-                              style: "currency",
-                              currency: "EUR",
-                            })} */}
-                      €
+                      {(product.price * product.quantity).toFixed(2)}€
                     </p>
-
-                    {/*   <div className="text-end">
-                      <p className="sm:text-lg md:text-sm 2xl:text-lg font-semibold">
-                        Subtotal ({selectedProductsData.length} product ):{" "}
-                        <span className="sm:font-semibold 2xl:text-lg font-bold text-lg md:text-sm">
-                          {totalPrice}€
-                        </span>
-                      </p>
-                    </div> */}
                   </div>
                 </div>
               </div>
             ))}
 
             <div
-              className="sm:flex justify-end border-t border-slate-300 p-4 2xl:p-4 md:p-4 xl:p-4 lg:p-4 hidden" /*`${
-                (selectedProducts).length > 0
+              className={`${
+                selectedProducts.length > 0
                   ? "sm:flex justify-end border-t border-slate-300 p-4 2xl:p-4 md:p-4 xl:p-4 lg:p-4 hidden"
-                  : "border-none sm:flex justify-end p-4 2xl:p-4 md:p-4 xl:p-4 lg:p-4 hidden "
-              } `*/
+                  : "border-none  justify-end p-4 2xl:p-4 md:p-4 xl:p-4 lg:p-4 hidden "
+              } `}
             >
               <p className="sm:text-lg md:text-lg 2xl:text-lg ">
-                Total ({/* {totalSelectedProducts}  */}product ):{" "}
+                Total ({totalItems}product ):{" "}
                 <span className="sm:font-semibold 2xl:text-lg font-bold text-lg md:text-lg">
-                  {/*  {totalPrice.toFixed(2)} */} 20 €
+                  {totalPrice.toFixed(2)}€
                 </span>
               </p>
             </div>
           </div>
         </div>
-
-        <AsideAddToCart
-        /* totalPrice={totalPrice} */
-        />
+        {selectedProducts.length > 0 && (
+          <AsideAddToCart totalPrice={totalPrice} totalItems={totalItems} />
+        )}
       </div>
     </div>
   );

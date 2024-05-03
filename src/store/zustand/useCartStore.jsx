@@ -1,51 +1,126 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
 const useCartStore = create(
-  persist(
-    (set, get) => ({
-      selectedProducts: [],
+  devtools(
+    persist(
+      (set, get) => ({
+        selectedProducts: [],
+        selectedAddress: {
+          country: "",
+          fullName: "",
+          addressLine1: "",
+          city: "",
+          state: "",
+          postalCode: "",
+          phoneNumber: "",
+        },
 
-      addToCart: (product, qtt) => {
-        let { selectedProducts } = get();
-        console.log(qtt);
+        addToCart: (product, qtt, isChecked) => {
+          set(
+            (state) => {
+              const existingProductIndex = state.selectedProducts.findIndex(
+                (p) => p.id === product.id
+              );
+              if (existingProductIndex !== -1) {
+                const updatedProducts = [...state.selectedProducts];
+                updatedProducts[existingProductIndex].quantity += qtt;
+                return { selectedProducts: updatedProducts };
+              } else {
+                let newProduct = {
+                  ...product,
+                  quantity: qtt,
+                  isChecked: isChecked,
+                };
 
-        let existedProduct = selectedProducts.find(
-          (item) => item.id === product.id
-        );
+                return {
+                  selectedProducts: [...state.selectedProducts, newProduct],
+                };
+              }
+            },
+            false,
+            "addToCart"
+          );
+        },
 
-        if (existedProduct) {
-          existedProduct.quantity += qtt;
-          return;
-        }
+        addToAddress: (
+          event,
+          country,
+          fullName,
+          addressLine1,
+          city,
+          state,
+          postalCode,
+          phoneNumber
+        ) => {
+          event.preventDefault();
 
-        let newProduct = { ...product, quantity: qtt };
-        console.log(selectedProducts);
-        set((state) => ({
-          selectedProducts: [...state.selectedProducts, newProduct],
-        }));
-      },
+          set((state) => {
+            return {
+              selectedAddress: [...state.selectedAddress],
+            };
+          });
 
-      removeItem: (productId) => {
-        const { selectedProducts } = get();
+          console.log(country);
+        },
 
-        set({
-          selectedProducts: selectedProducts.filter(
-            (item) => item.product.id !== productId
+        handleCheckboxToggle: (productId) => {
+          set((state) => {
+            const updatedProducts = state.selectedProducts.map((product) => {
+              if (product.id === productId) {
+                return { ...product, isChecked: !product.isChecked };
+              }
+              return product;
+            });
+            return { selectedProducts: updatedProducts };
+          });
+        },
+
+        updateProduct: (quantity, id) => {
+          set(
+            (state) => {
+              const existingProductIndex = state.selectedProducts.findIndex(
+                (p) => p.id === id
+              );
+
+              const updatedProducts = [...state.selectedProducts];
+              updatedProducts[existingProductIndex].quantity = quantity;
+              return { selectedProducts: updatedProducts };
+            },
+            false,
+            "updateProduct"
+          );
+        },
+
+        removeItem: (productId) => {
+          const { selectedProducts } = get();
+
+          set(
+            {
+              selectedProducts: selectedProducts.filter(
+                (item) => item.id !== productId
+              ),
+            },
+            false,
+            "removeItem"
+          );
+        },
+
+        clearCart: () =>
+          set(
+            () => {
+              return { selectedProducts: [] };
+            },
+            false,
+            "clearCart"
           ),
-        });
-      },
+      }),
 
-      clearCart: () =>
-        set(() => {
-          return { selectedProducts: [] };
-        }),
-    }),
-
-    {
-      name: "cart-storage",
-      storage: createJSONStorage(() => sessionStorage),
-    }
+      {
+        name: "cart-storage",
+        storage: createJSONStorage(() => sessionStorage),
+      }
+    )
   )
 );
 

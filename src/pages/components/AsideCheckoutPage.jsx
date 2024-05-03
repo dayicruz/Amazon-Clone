@@ -1,6 +1,23 @@
 import React from "react";
+import useCartStore from "../../store/zustand/useCartStore";
 
 const AsideCheckoutPage = () => {
+  const selectedProducts = useCartStore((state) => state.selectedProducts);
+
+  const productsInTheBasket = selectedProducts.filter((product) => {
+    if (product.isChecked === true) {
+      return product;
+    }
+  });
+
+  const totalPrice = productsInTheBasket.reduce((acc, item) => {
+    return acc + item.price * item.quantity + 4.5;
+  }, 0);
+
+  const totalItems = productsInTheBasket.reduce((accumulator, item) => {
+    return (accumulator += item.quantity);
+  }, 0);
+
   return (
     <div className="border rounded-lg border-slate-400 mb-5 p-5">
       <div className="flex flex-col items-center border-b border-slate-400">
@@ -23,18 +40,20 @@ const AsideCheckoutPage = () => {
         <h3 className="2xl:text-lg font-bold">Order summary</h3>
         <div className="flex justify-between">
           <p className="text-xs font-semibold">Products:</p>
-          <p className="text-xs font-semibold">--</p>
+          <p className="text-xs font-semibold">{totalItems}</p>
         </div>
 
         <div className="flex justify-between">
           <p className="text-xs font-semibold">Shipment:</p>
-          <p className="text-xs font-semibold">--</p>
+          <p className="text-xs font-semibold"> 4.50€</p>
         </div>
       </div>
 
       <div className="flex justify-between border-t border-b border-slate-400 p-1 mt-3">
         <p className="2xl:text-lg text-[#b12704] font-bold">Total:</p>
-        <p className="2xl:text-lg text-[#b12704] font-bold">28,90 €</p>
+        <p className="2xl:text-lg text-[#b12704] font-bold">
+          {totalPrice.toFixed(2)}€
+        </p>
       </div>
       <div className="2xl:w-[12vw] xl:w-[15vw] lg:w-[19vw] md:w-[20vw] sm:w-[25vw] w-[80vw]">
         <p className="text-[10px]  mt-3">
