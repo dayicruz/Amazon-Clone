@@ -4,7 +4,6 @@ import Footer from "../UI/Footer/Footer";
 import Header from "../UI/Header/Header";
 import Search from "../UI/Header/Search";
 import { HomePage } from "../components";
-import CartProvider from "../contextCart/CartProvider";
 import ProductsProvider from "../contextProducts/ProductsProvider";
 import AddToCart from "../pages/AddToCart";
 import AllProductsPages from "../pages/AllProductsPages";
@@ -25,8 +24,7 @@ const AppRoutet = () => {
   };
 
   return (
-    <ProductsProvider> 
-      <CartProvider>
+    <ProductsProvider>
       <Wrapper>
         <Header />
         <Routes>
@@ -55,18 +53,17 @@ const AppRoutet = () => {
 
           <Route path="/products/:all" element={<AllProductsPages />} />
 
-         
-            <Route path="/cart/:item" element={<AddToCart />} />
-            <Route path="/checkout/:productId" element={<CheckoutPage />} />
-         
+          <Route path="/cart" element={<AddToCart />} />
+          <Route path="/checkout/:productId" element={<CheckoutPage />} />
 
           <Route element={<Search />} />
+
+          <Route element={<addressComplet />} />
 
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         <Footer />
       </Wrapper>
- </CartProvider>
     </ProductsProvider>
   );
 };

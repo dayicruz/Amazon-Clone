@@ -2,26 +2,24 @@ import { FaCheck } from "react-icons/fa6";
 import { LuFileAudio } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router-dom";
 
-import React, { useContext } from "react";
-import { CartContext } from "../../contextCart/CartContext";
+import React, { useContext, useState } from "react";
 import { ProductsContext } from "../../contextProducts/ProductsContext";
+import useCartStore from "../../store/zustand/useCartStore";
 
 const AsideDetailPage = () => {
   const navigate = useNavigate();
-
   const { productItem } = useParams();
-
   const { details } = useParams();
-
-  const { handleSelectChange, quantityOptions } = useContext(CartContext);
-
   const { productData } = useContext(ProductsContext);
-
-  const onSubmitBasket = () => {
-    navigate(`/cart/${details}`);
-  };
-
+  const addToCart = useCartStore((state) => state.addToCart);
+  const [qtt, setQtt] = useState(1);
   const product = productData.find((product) => product.id === details);
+  const isChecked = true;
+
+  const onSubmitBasket = (product) => {
+    addToCart(product, qtt, isChecked);
+    navigate("/cart");
+  };
 
   return (
     <div className="rounded border-4 border-slate-200  sm:w-[25vw] 2xl:w-[20vw] xl:w-[20vw] mt-10 sm:mt-0">
@@ -138,16 +136,17 @@ const AsideDetailPage = () => {
           <p className="text-lg font-semibold text-[#007600]">En stock</p>
         </div>
         <div className="sm:pl-3 sm:pr-3 pl-5 pt-1">
-          <select
-            onChange={handleSelectChange}
+          <input
+            type="number"
+            value={qtt}
+            min="1"
+            onChange={(event) => setQtt(+event.target.value)}
             className="rounded-md border  bg-[#f0f2f2] 2xl:w-[15vw] sm:w-[22vw] w-[80vw] xl:w-[18vw] p-1 sm:text-xs text-sm hover:border-[#3db7cc] border-[#b4b6b6] hover:bg-[#e6e6e6]"
-          >
-            {quantityOptions}
-          </select>
+          ></input>
         </div>
         <div className="p-3 pt-0">
           <button
-            onClick={onSubmitBasket}
+            onClick={() => onSubmitBasket(product)}
             className="rounded-xl border-2 border-[#ffd814] bg-[#ffd814] sm:text-xs text-sm p-1 mt-3 sm:w-[22vw] w-[82vw] 2xl:w-[15vw] xl:w-[18vw] hover:bg-[#ffd814df]"
             type="submit"
           >
