@@ -6,12 +6,19 @@ const useCartStore = create(
     persist(
       (set, get) => ({
         selectedProducts: [],
+        selectedAddressesHistory: [],
+        selectedCreditCartHistory: [],
+        selectedCreditCart: {
+          cardNumber: "",
+          cardName: "",
+          cardDueDate: "",
+          cardSecurityCode: "",
+        },
         selectedAddress: {
           country: "",
           fullName: "",
           addressLine1: "",
           city: "",
-          state: "",
           postalCode: "",
           phoneNumber: "",
         },
@@ -49,19 +56,84 @@ const useCartStore = create(
           fullName,
           addressLine1,
           city,
-          state,
           postalCode,
           phoneNumber
         ) => {
           event.preventDefault();
 
+          if (
+            country.trim() === "" ||
+            fullName.trim() === "" ||
+            addressLine1.trim() === "" ||
+            city.trim() === "" ||
+            postalCode.trim() === "" ||
+            phoneNumber.trim() === ""
+          ) {
+            return;
+          }
+
           set((state) => {
+            const newSelectedAddress = {
+              ...state.selectedAddress,
+              country: country || state.selectedAddress.country,
+              fullName: fullName || state.selectedAddress.fullName,
+              addressLine1: addressLine1 || state.selectedAddress.addressLine1,
+              city: city || state.selectedAddress.city,
+              state: state || state.selectedAddress.state,
+              postalCode: postalCode || state.selectedAddress.postalCode,
+              phoneNumber: phoneNumber || state.selectedAddress.phoneNumber,
+            };
+
+            const newAddressesHistory = [
+              ...state.selectedAddressesHistory,
+              newSelectedAddress,
+            ];
+
             return {
-              selectedAddress: [...state.selectedAddress],
+              selectedAddress: newSelectedAddress,
+              selectedAddressesHistory: newAddressesHistory,
             };
           });
+        },
 
-          console.log(country);
+        addToCreditCard: (
+          event,
+          cardNumber,
+          cardName,
+          cardDueDate,
+          cardSecurityCode
+        ) => {
+          event.preventDefault();
+
+          if (
+            cardNumber.trim() === "" ||
+            cardName.trim() === "" ||
+            cardDueDate.trim() === "" ||
+            cardSecurityCode.trim() === ""
+          ) {
+            return;
+          }
+
+          set((state) => {
+            const newSelectedCreditCard = {
+              ...state.selectedCreditCart,
+              cardNumber: cardNumber || state.selectedCreditCart.cardNumber,
+              cardName: cardName || state.selectedCreditCart.cardName,
+              cardDueDate: cardDueDate || state.selectedCreditCart.cardDueDate,
+              cardSecurityCode:
+                cardSecurityCode || state.selectedCreditCart.cardSecurityCode,
+            };
+
+            const newCreditCardHistory = [
+              ...state.selectedCreditCartHistory,
+              newSelectedCreditCard,
+            ];
+
+            return {
+              selectedCreditCart: newSelectedCreditCard,
+              selectedCreditCartHistory: newCreditCardHistory,
+            };
+          });
         },
 
         handleCheckboxToggle: (productId) => {
@@ -104,6 +176,35 @@ const useCartStore = create(
             false,
             "removeItem"
           );
+          /*  useCartStore.getState().clearCartAndSessionStorage(); */
+        },
+
+        removeAddress: (index) => {
+          const { selectedAddressesHistory } = get();
+
+          set(
+            {
+              selectedAddressesHistory: selectedAddressesHistory.filter(
+                (_, i) => i !== index
+              ),
+            },
+            false,
+            "removeAddress"
+          );
+        },
+
+        removeCreditCard: (index) => {
+          const { selectedCreditCartHistory } = get();
+
+          set(
+            {
+              selectedCreditCartHistory: selectedCreditCartHistory.filter(
+                (_, i) => i !== index
+              ),
+            },
+            false,
+            "removeCreditCard"
+          );
         },
 
         clearCart: () =>
@@ -114,6 +215,12 @@ const useCartStore = create(
             false,
             "clearCart"
           ),
+
+       /*  clearCartAndSessionStorage: () => {
+          set({ selectedProducts: [] });
+
+          sessionStorage.removeItem("cart-storage");
+        }, */
       }),
 
       {
