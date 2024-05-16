@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useCartStore from "../../store/zustand/useCartStore";
+import CheckoutModal from "./CheckoutModal";
 
 const AsideCheckoutPage = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [error, setError] = useState("");
   const selectedProducts = useCartStore((state) => state.selectedProducts);
+  const removeItem = useCartStore((state) => state.removeItem);
+  const selectedAddressesHistory = useCartStore(
+    (state) => state.selectedAddressesHistory
+  );
+
+  const selectedCreditCartHistory = useCartStore(
+    (state) => state.selectedCreditCartHistory
+  );
+
+  const navigate = useNavigate();
 
   const productsInTheBasket = selectedProducts.filter((product) => {
     if (product.isChecked === true) {
       return product;
     }
+  });
+
+  const removeProductsInTheBasket = productsInTheBasket.map((product) => {
+    return product.id;
   });
 
   const totalPrice = productsInTheBasket.reduce((acc, item) => {
@@ -18,17 +36,61 @@ const AsideCheckoutPage = () => {
     return (accumulator += item.quantity);
   }, 0);
 
+  useEffect(() => {
+    if (
+      selectedAddressesHistory.length > 0 &&
+      selectedCreditCartHistory.length > 0
+    ) {
+      setError(" ");
+    }
+  }, [selectedAddressesHistory, selectedCreditCartHistory]);
+
+  const openModal = () => {
+    if (
+      selectedAddressesHistory.length > 0 &&
+      selectedCreditCartHistory.length > 0
+    ) {
+      document.body.style.overflow = "hidden";
+      setError(" ");
+      setModalOpen(true);
+    } else {
+      setError(" You must select an address and a payment method");
+    }
+  };
+
+  const closeModal = () => {
+    document.body.style.overflow = "auto";
+    setModalOpen(false);
+    navigate("/products");
+    removeProductsInTheBasket.forEach((id) => {
+      removeItem(id);
+    });
+  };
+
+  const onCloseModal = () => {
+    document.body.style.overflow = "auto";
+    setModalOpen(false);
+  };
+
   return (
     <div className="border rounded-lg border-slate-400 mb-5 p-5">
       <div className="flex flex-col items-center border-b border-slate-400">
         <div>
           <button
+            onClick={openModal}
             type="submit"
             className="bg-[#ffd814] text-black py-2 px-4 rounded hover:bg-[#ffd501d4] transition-colors text-xs"
           >
             Send to this address
           </button>
+
+          {modalOpen && (
+            <CheckoutModal onClose={closeModal} onCloseModal={onCloseModal} />
+          )}
         </div>
+        <p className="text-red-600 font-semibold text-[11px] text-center">
+          {error}
+        </p>
         <div className="2xl:w-[10vw] xl:w-[13vw] lg:w-[15vw] md:w-[18vw] sm:w-[20vw] w-[60vw] mt-2 mb-2">
           <p className="text-xs text-center">
             Choose an address to process the order. You can modify or cancel the

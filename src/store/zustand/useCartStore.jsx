@@ -6,12 +6,19 @@ const useCartStore = create(
     persist(
       (set, get) => ({
         selectedProducts: [],
+        selectedAddressesHistory: [],
+        selectedCreditCartHistory: [],
+        selectedCreditCart: {
+          cardNumber: "",
+          cardName: "",
+          cardDueDate: "",
+          cardSecurityCode: "",
+        },
         selectedAddress: {
           country: "",
           fullName: "",
           addressLine1: "",
           city: "",
-          state: "",
           postalCode: "",
           phoneNumber: "",
         },
@@ -43,25 +50,76 @@ const useCartStore = create(
           );
         },
 
-        addToAddress: (
-          event,
-          country,
-          fullName,
-          addressLine1,
-          city,
-          state,
-          postalCode,
-          phoneNumber
-        ) => {
-          event.preventDefault();
+        addToAddress: (data) => {
+          if (
+            data.country.trim() === "" ||
+            data.fullName.trim() === "" ||
+            data.addressLine1.trim() === "" ||
+            data.city.trim() === "" ||
+            data.postalCode.trim() === "" ||
+            data.phoneNumber.trim() === ""
+          ) {
+            return;
+          }
 
           set((state) => {
+            const newSelectedAddress = {
+              ...state.selectedAddress,
+              country: data.country || state.selectedAddress.country,
+              fullName: data.fullName || state.selectedAddress.fullName,
+              addressLine1:
+                data.addressLine1 || state.selectedAddress.addressLine1,
+              city: data.city || state.selectedAddress.city,
+              postalCode: data.postalCode || state.selectedAddress.postalCode,
+              phoneNumber:
+                data.phoneNumber || state.selectedAddress.phoneNumber,
+            };
+
+            const newAddressesHistory = [
+              ...state.selectedAddressesHistory,
+              newSelectedAddress,
+            ];
+
             return {
-              selectedAddress: [...state.selectedAddress],
+              selectedAddress: newSelectedAddress,
+              selectedAddressesHistory: newAddressesHistory,
             };
           });
+        },
 
-          console.log(country);
+        addToCreditCard: (data) => {
+          if (
+            data.cardNumber.trim() === "" ||
+            data.cardName.trim() === "" ||
+            data.cardDueDate.trim() === "" ||
+            data.cardSecurityCode.trim() === ""
+          ) {
+            return;
+          }
+
+          set((state) => {
+            const newSelectedCreditCard = {
+              ...state.selectedCreditCart,
+              cardNumber:
+                data.cardNumber || state.selectedCreditCart.cardNumber,
+              cardName: data.cardName || state.selectedCreditCart.cardName,
+              cardDueDate:
+                data.cardDueDate || state.selectedCreditCart.cardDueDate,
+              cardSecurityCode:
+                data.cardSecurityCode ||
+                state.selectedCreditCart.cardSecurityCode,
+            };
+
+            const newCreditCardHistory = [
+              ...state.selectedCreditCartHistory,
+              newSelectedCreditCard,
+            ];
+
+            return {
+              selectedCreditCart: newSelectedCreditCard,
+              selectedCreditCartHistory: newCreditCardHistory,
+            };
+          });
         },
 
         handleCheckboxToggle: (productId) => {
@@ -104,6 +162,35 @@ const useCartStore = create(
             false,
             "removeItem"
           );
+          /*  useCartStore.getState().clearCartAndSessionStorage(); */
+        },
+
+        removeAddress: (index) => {
+          const { selectedAddressesHistory } = get();
+
+          set(
+            {
+              selectedAddressesHistory: selectedAddressesHistory.filter(
+                (_, i) => i !== index
+              ),
+            },
+            false,
+            "removeAddress"
+          );
+        },
+
+        removeCreditCard: (index) => {
+          const { selectedCreditCartHistory } = get();
+
+          set(
+            {
+              selectedCreditCartHistory: selectedCreditCartHistory.filter(
+                (_, i) => i !== index
+              ),
+            },
+            false,
+            "removeCreditCard"
+          );
         },
 
         clearCart: () =>
@@ -114,6 +201,12 @@ const useCartStore = create(
             false,
             "clearCart"
           ),
+
+        /*  clearCartAndSessionStorage: () => {
+          set({ selectedProducts: [] });
+
+          sessionStorage.removeItem("cart-storage");
+        }, */
       }),
 
       {

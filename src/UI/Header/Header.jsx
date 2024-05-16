@@ -67,10 +67,10 @@ const Header = () => {
                   )}
                 </div>
               </div>
-              <div className="pr-4 pl-4 hidden sm:block">
+              {/* <div className="pr-4 pl-4 hidden sm:block">
                 <div className="text-xs xl:text-sm">Returns</div>
                 <div className="text-sm xl:text-base font-bold">& Orders</div>
-              </div>
+              </div> */}
               <div className=" sm:flex flex-col  items-center pr-3 pl-3 hidden ">
                 <p className="text-sm text-[#ff8732]">{totalItems}</p>
 

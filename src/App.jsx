@@ -21,7 +21,7 @@ function App() {
       if (!user) return dispatch(logout());
 
       const { uid, email, displayName } = user;
-      console.log(user);
+
       dispatch(login({ uid, email, displayName }));
     });
   }, []);
