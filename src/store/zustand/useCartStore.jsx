@@ -50,24 +50,14 @@ const useCartStore = create(
           );
         },
 
-        addToAddress: (
-          event,
-          country,
-          fullName,
-          addressLine1,
-          city,
-          postalCode,
-          phoneNumber
-        ) => {
-          event.preventDefault();
-
+        addToAddress: (data) => {
           if (
-            country.trim() === "" ||
-            fullName.trim() === "" ||
-            addressLine1.trim() === "" ||
-            city.trim() === "" ||
-            postalCode.trim() === "" ||
-            phoneNumber.trim() === ""
+            data.country.trim() === "" ||
+            data.fullName.trim() === "" ||
+            data.addressLine1.trim() === "" ||
+            data.city.trim() === "" ||
+            data.postalCode.trim() === "" ||
+            data.phoneNumber.trim() === ""
           ) {
             return;
           }
@@ -75,13 +65,14 @@ const useCartStore = create(
           set((state) => {
             const newSelectedAddress = {
               ...state.selectedAddress,
-              country: country || state.selectedAddress.country,
-              fullName: fullName || state.selectedAddress.fullName,
-              addressLine1: addressLine1 || state.selectedAddress.addressLine1,
-              city: city || state.selectedAddress.city,
-              state: state || state.selectedAddress.state,
-              postalCode: postalCode || state.selectedAddress.postalCode,
-              phoneNumber: phoneNumber || state.selectedAddress.phoneNumber,
+              country: data.country || state.selectedAddress.country,
+              fullName: data.fullName || state.selectedAddress.fullName,
+              addressLine1:
+                data.addressLine1 || state.selectedAddress.addressLine1,
+              city: data.city || state.selectedAddress.city,
+              postalCode: data.postalCode || state.selectedAddress.postalCode,
+              phoneNumber:
+                data.phoneNumber || state.selectedAddress.phoneNumber,
             };
 
             const newAddressesHistory = [
@@ -96,20 +87,12 @@ const useCartStore = create(
           });
         },
 
-        addToCreditCard: (
-          event,
-          cardNumber,
-          cardName,
-          cardDueDate,
-          cardSecurityCode
-        ) => {
-          event.preventDefault();
-
+        addToCreditCard: (data) => {
           if (
-            cardNumber.trim() === "" ||
-            cardName.trim() === "" ||
-            cardDueDate.trim() === "" ||
-            cardSecurityCode.trim() === ""
+            data.cardNumber.trim() === "" ||
+            data.cardName.trim() === "" ||
+            data.cardDueDate.trim() === "" ||
+            data.cardSecurityCode.trim() === ""
           ) {
             return;
           }
@@ -117,11 +100,14 @@ const useCartStore = create(
           set((state) => {
             const newSelectedCreditCard = {
               ...state.selectedCreditCart,
-              cardNumber: cardNumber || state.selectedCreditCart.cardNumber,
-              cardName: cardName || state.selectedCreditCart.cardName,
-              cardDueDate: cardDueDate || state.selectedCreditCart.cardDueDate,
+              cardNumber:
+                data.cardNumber || state.selectedCreditCart.cardNumber,
+              cardName: data.cardName || state.selectedCreditCart.cardName,
+              cardDueDate:
+                data.cardDueDate || state.selectedCreditCart.cardDueDate,
               cardSecurityCode:
-                cardSecurityCode || state.selectedCreditCart.cardSecurityCode,
+                data.cardSecurityCode ||
+                state.selectedCreditCart.cardSecurityCode,
             };
 
             const newCreditCardHistory = [
@@ -216,7 +202,7 @@ const useCartStore = create(
             "clearCart"
           ),
 
-       /*  clearCartAndSessionStorage: () => {
+        /*  clearCartAndSessionStorage: () => {
           set({ selectedProducts: [] });
 
           sessionStorage.removeItem("cart-storage");

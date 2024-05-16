@@ -1,7 +1,8 @@
+import React from "react";
 import ReactDom from "react-dom";
 
-const Modal = ({ children, open, close }) => {
-  if (!open) return null;
+const Modal = ({ children, openModal, close }) => {
+  if (!openModal) return null;
 
   const onClose = () => {
     close();
@@ -9,7 +10,7 @@ const Modal = ({ children, open, close }) => {
     document.body.style.overflow = "auto";
   };
 
-  if (open) {
+  if (openModal) {
     document.body.style.overflow = "hidden";
   }
 
@@ -20,9 +21,33 @@ const Modal = ({ children, open, close }) => {
   };
 
   return ReactDom.createPortal(
+    <div className="fixed inset-0 flex items-center justify-center">
+      <div
+        className="absolute inset-0 bg-black opacity-50 layout"
+        onClick={handleLayoutClick}
+      ></div>
+      <div className="absolute bg-[#fafafa] rounded-md p-5 z-50">
+        <div className="text-right">
+          <button
+            onClick={onClose}
+            className="text-[#8a8a8a] font-bold text-2xl hover:text-gray-400"
+          >
+            x
+          </button>
+        </div>
+        {children}
+      </div>
+    </div>,
+    document.getElementById("portal")
+  );
+};
+
+export default Modal;
+
+/*  return ReactDom.createPortal(
     <div onClick={handleLayoutClick}>
       <Layout />
-      <div className="absolute top-1/4 left-72 z-50 pl-5 pr-5 pb-5 translate-x-1/2 translate-y-1/2 bg-[#fafafa] rounded-md">
+      <div className="absolute top-1/4 left-96 z-50  pl-5 pr-5 pb-5 translate-x-1/2 translate-y-1/2 bg-[#fafafa] rounded-md">
         <div className="text-right">
           <button
             onClick={onClose}
@@ -41,7 +66,4 @@ const Modal = ({ children, open, close }) => {
 const Layout = () => {
   return (
     <div className="absolute inset-0 bg-black opacity-50 z-50 layout"></div>
-  );
-};
-
-export default Modal;
+  ); */

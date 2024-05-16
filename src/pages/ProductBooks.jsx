@@ -1,15 +1,14 @@
+import React, { useContext } from "react";
 import { BiWorld } from "react-icons/bi";
 import { GiModernCity } from "react-icons/gi";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { SlNotebook } from "react-icons/sl";
+import { useParams } from "react-router-dom";
+import { ProductsContext } from "../contextProducts/ProductsContext";
 import AsideDetailPage from "./components/AsideDetailPage";
 import BadgeAmazon from "./components/BadgeAmazon";
 import CarouselProducts from "./components/CarouselProducts";
 import Starts from "./components/Starts";
-
-import React, { useContext } from "react";
-import { useParams } from "react-router-dom";
-import { ProductsContext } from "../contextProducts/ProductsContext";
 
 const ProductBooks = () => {
   const { details } = useParams();

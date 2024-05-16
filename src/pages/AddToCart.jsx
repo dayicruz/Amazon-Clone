@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { default as React } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import StickyBox from "react-sticky-box";
 import useCartStore from "../store/zustand/useCartStore";
 import { AsideAddToCart } from "./components/AsideAddToCart";
 
@@ -207,9 +208,13 @@ const AddToCart = () => {
             </div>
           </div>
         </div>
-        {selectedProducts.length > 0 && (
-          <AsideAddToCart totalPrice={totalPrice} totalItems={totalItems} />
-        )}
+        <div className="mb-6">
+          <StickyBox>
+            {selectedProducts.length > 0 && (
+              <AsideAddToCart totalPrice={totalPrice} totalItems={totalItems} />
+            )}
+          </StickyBox>
+        </div>
       </div>
     </div>
   );
