@@ -3,6 +3,7 @@ import { default as React } from "react";
 import { FaCheck } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import StickyBox from "react-sticky-box";
+import BackToTop from "../components/BackToTop";
 import useCartStore from "../store/zustand/useCartStore";
 import { AsideAddToCart } from "./components/AsideAddToCart";
 
@@ -208,6 +209,7 @@ const AddToCart = () => {
             </div>
           </div>
         </div>
+
         <div className="mb-6">
           <StickyBox>
             {selectedProducts.length > 0 && (
@@ -215,6 +217,9 @@ const AddToCart = () => {
             )}
           </StickyBox>
         </div>
+      </div>
+      <div className="bg-amazonclone-background">
+        <BackToTop />
       </div>
     </div>
   );

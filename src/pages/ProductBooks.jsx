@@ -9,6 +9,7 @@ import AsideDetailPage from "./components/AsideDetailPage";
 import BadgeAmazon from "./components/BadgeAmazon";
 import CarouselProducts from "./components/CarouselProducts";
 import Starts from "./components/Starts";
+import BackToTop from "../components/BackToTop";
 
 const ProductBooks = () => {
   const { details } = useParams();
@@ -104,6 +105,7 @@ const ProductBooks = () => {
             </div>
           )
       )}
+      <BackToTop/>
     </div>
   );
 };

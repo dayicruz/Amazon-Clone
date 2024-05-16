@@ -4,6 +4,7 @@ import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
 import { Link, useSearchParams } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
 import PaginationButtons from "./components/PaginationButtons";
+import BackToTop from "../components/BackToTop";
 
 const AllProductsPages = () => {
   const { productData } = useContext(ProductsContext);
@@ -108,6 +109,7 @@ const AllProductsPages = () => {
           );
         })}
       </div>
+  
       {}
       <PaginationButtons
         dataSearch={dataSearch}
@@ -116,6 +118,8 @@ const AllProductsPages = () => {
         totalPages={totalPages}
         setCurrentPage={setCurrentPage}
       />
+    <BackToTop />
+
     </>
   );
 };

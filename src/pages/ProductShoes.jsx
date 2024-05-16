@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
 import AsideDetailPage from "./components/AsideDetailPage";
 import Starts from "./components/Starts";
+import BackToTop from "../components/BackToTop";
 
 const ProductShoes = () => {
   const { details } = useParams();
@@ -101,6 +102,7 @@ const ProductShoes = () => {
       )}
 
       <CarouselProducts />
+      <BackToTop/>
     </div>
   );
 };
