@@ -1,13 +1,15 @@
 import "animate.css";
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
 import Carousel from "./Carousel";
 import CarouselCategories from "./CarouselCategories";
 import CarouselProducts from "./CarouselProducts";
 import HomePageCards from "./HomePageCards";
-
+import BackToTop from "./BackToTop";
 const HomePage = () => {
+  const backToTop = useRef();
   const { productData } = useContext(ProductsContext);
   const navigate = useNavigate();
   function randomSort() {
@@ -27,7 +29,11 @@ const HomePage = () => {
     navigate(`/${product.category}/${product.category}/${productId}`);
   };
   return (
-    <div className="bg-amazonclone-background animate__animated animate__fadeIn animate__faster">
+    <div
+      id="top"
+      ref={backToTop}
+      className="bg-amazonclone-background animate__animated animate__fadeIn animate__faster"
+    >
       <div className="bg-amazonclone-background 2xl:min-w-[1000px] 2xl:max-w-[1500px] 2xl:m-auto  ">
         <Carousel />
 
@@ -57,6 +63,7 @@ const HomePage = () => {
           />
         </div>
       </div>
+   <BackToTop/>
     </div>
   );
 };

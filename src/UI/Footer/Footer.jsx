@@ -9,11 +9,13 @@ const Footer = () => {
   if (location.pathname != "/login")
     if (location.pathname != "/signup")
       return (
-        <div className="bg-amazonclone text-white ">
-          <Navegation />
-          <Languages />
-          <Links />
-          <CopyRight />
+        <div>
+          <div className="bg-amazonclone text-white ">
+            <Navegation />
+            <Languages />
+            <Links />
+            <CopyRight />
+          </div>
         </div>
       );
 };

@@ -3,6 +3,7 @@ import { FaCheck } from "react-icons/fa6";
 import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
+import BackToTop from "../components/BackToTop";
 
 const ProductsPage = () => {
   const { productItem } = useParams();
@@ -103,6 +104,7 @@ const ProductsPage = () => {
             );
           })}
       </div>
+      <BackToTop/>
     </>
   );
 };

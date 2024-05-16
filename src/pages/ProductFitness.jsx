@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
 import AsideDetailPage from "./components/AsideDetailPage";
 import Starts from "./components/Starts";
+import BackToTop from "../components/BackToTop";
 
 const ProductFitness = () => {
   const { details } = useParams();
@@ -83,6 +84,7 @@ const ProductFitness = () => {
       )}
 
       <CarouselProducts />
+      <BackToTop/>
     </div>
   );
 };
