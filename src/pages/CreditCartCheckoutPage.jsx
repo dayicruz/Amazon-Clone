@@ -62,7 +62,7 @@ const CreditCartCheckoutPage = () => {
           {(selectedCreditCartHistory.length > 0) &
           (isTrueCreditCart === false) ? (
             <div>
-              <p className="text-2xl font-semibold border-b border-slate-400 mt-6">
+              <p className="text-xl sm:text-2xl  font-semibold border-b border-slate-400 mt-6">
                 My credit and debit cards
               </p>
 
@@ -87,7 +87,7 @@ const CreditCartCheckoutPage = () => {
                             X
                           </button>
                         </div>
-                        <div className="flex items-center text-center gap-2">
+                        <div className="flex flex-col sm:flex-row items-center text-center gap-2">
                           <img
                             src={"../../public/images/Vector.png"}
                             alt="logo diners Club"
@@ -97,14 +97,18 @@ const CreditCartCheckoutPage = () => {
                             {" "}
                             {card.cardName}{" "}
                           </p>
-                          <p className="text-xs ">which ends in</p>
-                          <p className="text-xs font-semibold  ">
-                            {card.cardNumber.slice(-n)}
-                          </p>
-                          <p className="text-xs ">Expires on</p>
-                          <p className="text-xs font-semibold ">
-                            {card.cardDueDate}
-                          </p>
+                          <div className="flex gap-1 sm:flex-row">
+                            <p className="text-xs ">which ends in</p>
+                            <p className="text-xs font-bold  ">
+                              {card.cardNumber.slice(-n)}
+                            </p>
+                          </div>
+                          <div className="flex gap-1 sm:flex-row">
+                            <p className="text-xs ">Expires on</p>
+                            <p className="text-xs font-bold ">
+                              {card.cardDueDate}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -177,110 +181,131 @@ const CreditCartCheckoutPage = () => {
                   </p>
                 )}
 
-                <div className="flex text-center gap-3 mt-5">
-                  <label
-                    htmlFor="cardNumber"
-                    className="block font-medium sm:text-sm text-xs"
-                  >
-                    Card Number
-                  </label>
-                  <input
-                    autoComplete="off"
-                    type="text"
-                    id="cardNumber"
-                    {...register("cardNumber", {
-                      required: "This is required",
-                      minLength: { value: 16, message: "Min Length is 16" },
-                      maxLength: { value: 18, message: "Max Length is 18" },
-                      pattern: {
-                        value: /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g,
-                        message:
-                          "The phone number must only contain only numbers",
-                      },
-                    })}
-                    className="form-input border border-gray-300 text-sm pl-1"
-                    value={data.cardNumber}
-                  />
-                  <p className="text-red-600 font-semibold text-[11px]">
-                    {errors.cardNumber?.message}
-                  </p>
+                <div className="flex flex-col  gap-1">
+                  <div className="flex text-center gap-3 mt-5">
+                    <label
+                      htmlFor="cardNumber"
+                      className="block font-medium sm:text-sm text-xs"
+                    >
+                      Card Number
+                    </label>
+                    <input
+                      autoComplete="off"
+                      type="text"
+                      id="cardNumber"
+                      {...register("cardNumber", {
+                        required: "This is required",
+                        minLength: { value: 16, message: "Min Length is 16" },
+                        maxLength: { value: 18, message: "Max Length is 18" },
+                        pattern: {
+                          value:
+                            /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g,
+                          message:
+                            "The phone number must only contain only numbers",
+                        },
+                      })}
+                      className="form-input border border-gray-300 text-sm pl-1"
+                      value={data.cardNumber}
+                    />
+                  </div>
+                  <div>
+                    <p className="text-red-600 font-semibold text-[11px] ">
+                      {errors.cardNumber?.message}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex text-center gap-3 mt-5">
-                  <label
-                    htmlFor="cardName"
-                    className="block font-medium sm:text-sm text-xs"
-                  >
-                    Name on the card
-                  </label>
-                  <input
-                    type="text"
-                    id="cardName"
-                    {...register("cardName", {
-                      required: "This is required",
-                      minLength: { value: 3, message: "Min Length is 3" },
-                      pattern: {
-                        value: /^[A-Za-z]+$/i,
-                        message: "The name must only contain only letters",
-                      },
-                    })}
-                    className="form-input border border-gray-300 text-sm pl-1"
-                    value={data.cardName}
-                  />
-                  <p className="text-red-600 font-semibold text-[11px] ">
-                    {errors.cardName?.message}
-                  </p>
+                <div className="flex flex-col  gap-1">
+                  <div className="flex text-center gap-3 mt-5">
+                    <label
+                      htmlFor="cardName"
+                      className="block font-medium sm:text-sm text-xs"
+                    >
+                      Name on the card
+                    </label>
+                    <input
+                      type="text"
+                      id="cardName"
+                      {...register("cardName", {
+                        required: "This is required",
+                        minLength: { value: 3, message: "Min Length is 3" },
+                        pattern: {
+                          value: /^[A-Za-z]+$/i,
+                          message: "The name must only contain only letters",
+                        },
+                      })}
+                      className="form-input border border-gray-300 text-sm pl-1  w-36"
+                      value={data.cardName}
+                    />
+                  </div>
+
+                  <div>
+                    <p className="text-red-600 font-semibold text-[11px] ">
+                      {errors.cardName?.message}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex text-center gap-3 mt-5">
-                  <label
-                    htmlFor="cardDate"
-                    className="block font-medium sm:text-sm text-xs "
-                  >
-                    Due date
-                  </label>
-                  <input
-                    type="date"
-                    id="cardDueDate"
-                    {...register("cardDueDate", {
-                      required: "This is required",
-                    })}
-                    min="2024-05-01"
-                    max="2030-12-31"
-                    className="form-input border border-gray-300 text-sm pl-1"
-                    value={data.cardDueDate}
-                  />
-                  <p className="text-red-600 font-semibold text-[11px]">
-                    {errors.cardDueDate?.message}
-                  </p>
+
+                <div className="flex flex-col  gap-1">
+                  <div className="flex text-center gap-3 mt-5">
+                    <label
+                      htmlFor="cardDate"
+                      className="block font-medium sm:text-sm text-xs "
+                    >
+                      Due date
+                    </label>
+                    <input
+                      type="date"
+                      id="cardDueDate"
+                      {...register("cardDueDate", {
+                        required: "This is required",
+                      })}
+                      min="2024-05-01"
+                      max="2030-12-31"
+                      className="form-input border border-gray-300 text-sm pl-1"
+                      value={data.cardDueDate}
+                    />
+                  </div>
+                  <div>
+                    <p className="text-red-600 font-semibold text-[11px]">
+                      {errors.cardDueDate?.message}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex text-center gap-3 mt-5">
-                  <label
-                    htmlFor="cardName"
-                    className="block font-medium sm:text-sm text-xs "
-                  >
-                    Security code (CVV)
-                  </label>
-                  <input
-                    type="text"
-                    id="cardSecurityCode"
-                    {...register("cardSecurityCode", {
-                      required: "This is required",
-                      minLength: {
-                        value: 3,
-                        message: "Min Length is 3",
-                      },
-                      maxLength: { value: 3, message: "Max Length is 3" },
-                      pattern: {
-                        value: /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g,
-                        message:
-                          "The phone number must only contain only numbers",
-                      },
-                    })}
-                    className="form-input border border-gray-300 text-sm pl-1 sm:w-[3vw] w-[15vw]"
-                    value={data.cardSecurityCode}
-                  />
-                  <p className="text-red-600 font-semibold text-[11px]">
-                    {errors.cardSecurityCode?.message}
-                  </p>
+
+                <div className="flex flex-col  gap-1">
+                  <div className="flex text-center gap-3 mt-5">
+                    <label
+                      htmlFor="cardName"
+                      className="block font-medium sm:text-sm text-xs "
+                    >
+                      Security code (CVV)
+                    </label>
+                    <input
+                      type="text"
+                      id="cardSecurityCode"
+                      {...register("cardSecurityCode", {
+                        required: "This is required",
+                        minLength: {
+                          value: 3,
+                          message: "Min Length is 3",
+                        },
+                        maxLength: { value: 3, message: "Max Length is 3" },
+                        pattern: {
+                          value:
+                            /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g,
+                          message:
+                            "The phone number must only contain only numbers",
+                        },
+                      })}
+                      className="form-input border border-gray-300 text-sm pl-1 sm:w-[3vw] w-[15vw]"
+                      value={data.cardSecurityCode}
+                    />
+                  </div>
+                  <div>
+                    <p className="text-red-600 font-semibold text-[11px]">
+                      {errors.cardSecurityCode?.message}
+                    </p>
+                  </div>
                 </div>
               </div>
               <div className="flex sm:justify-end sm:mt-0 mt-5 ">
