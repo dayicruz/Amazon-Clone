@@ -22,7 +22,7 @@ const NavBar = () => {
             <h1>{category[0].toUpperCase() + category.slice(1)}</h1>
           </Link>
         ))}
-        <Link to={"/category/customerservice"}>
+        <Link to={"/customerservice"}>
           <h1>Customer Service</h1>
         </Link>
       </div>
