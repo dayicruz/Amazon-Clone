@@ -79,7 +79,7 @@ const Search = () => {
 
   return (
     <div className="w-[100%]">
-      <div className="flex items-center h-10 bg-amazonclone-yellow rounded">
+      <div className="flex items-center justify-center h-10 bg-amazonclone-yellow rounded">
         <select
           className="p-[6px] bg-gray-300 text-black border text-xs xl:text-sm focus:outline-none focus:border-none"
           style={{ border: "none" }}
