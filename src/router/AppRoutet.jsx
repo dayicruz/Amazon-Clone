@@ -13,6 +13,7 @@ import ProductFitness from "../pages/ProductFitness";
 import ProductMobile from "../pages/ProductMobile";
 import ProductShoes from "../pages/ProductShoes";
 import ProductsPage from "../pages/ProductsPage";
+import CustomerService from "../pages/CustomerService";
 
 const AppRoutet = () => {
   const Wrapper = ({ children }) => {
@@ -49,6 +50,10 @@ const AppRoutet = () => {
           <Route
             path="/mobile/:productItem/:details"
             element={<ProductMobile />}
+          />
+          <Route
+            path="/customerservice"
+            element={<CustomerService />}
           />
 
           <Route path="/products/:all" element={<AllProductsPages />} />
