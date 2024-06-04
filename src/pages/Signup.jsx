@@ -33,7 +33,7 @@ const Signup = () => {
       <div className=" bg-amazonclone-light_blu :w-[100%] flex items-center p-5 sm:bg-white">
         <img
           className=" object-contain w-[90px] h-[30px] sm:hidden"
-          src={"../../../public/images/amazon.png"}
+          src={"../image/amazon.png"}
           alt=""
         />
       </div>
