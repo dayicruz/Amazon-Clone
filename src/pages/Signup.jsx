@@ -40,7 +40,7 @@ const Signup = () => {
 
       <div className="sm:flex sm:justify-center sm:items-center hidden">
         <img
-          src={"../../public/images/amazon.png"}
+          src={"../../public/images/logo amazon.jpg"}
           className="object-contain w-[150px] h-[60px] "
         />
       </div>
