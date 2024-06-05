@@ -40,7 +40,7 @@ const LoginPage = () => {
       <div className="sm:flex sm:justify-center sm:items-center hidden">
         <img
           alt="logo amazon"
-          src={"../../public/images/logo amazon.jpg"}
+          src={"./images/logo amazon.jpg"}
           className="object-contain w-[150px] h-[60px] "
         />
       </div>
