@@ -60,7 +60,7 @@ const HomePage = () => {
           <img
             alt="imagen banner"
             className="w-[80vw] h-[30vw] m-auto object-fill 2xl:w-[]"
-            src={"../../public/images/banner_image.jpg"}
+            src={"./images/banner_image.jpg"}
           />
         </section>
       </div>

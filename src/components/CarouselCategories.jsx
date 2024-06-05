@@ -29,23 +29,23 @@ const CarouselCategories = () => {
       >
         <SwiperSlide>
           <Link to={`/category/books`}>
-            <img className=" w-40" src={"../../public/images/book (1).png"} />
+            <img className=" w-40" src={"./images/book (1).png"} />
           </Link>
         </SwiperSlide>
 
         <SwiperSlide>
           <Link to={`/category/shoes`}>
-            <img className="w-40" src={"../../public/images/shoes2.png"} />
+            <img className="w-40" src={"./images/shoes2.png"} />
           </Link>
         </SwiperSlide>
         <SwiperSlide>
           <Link to={"/category/fitness"}>
-            <img className=" w-40" src={"../../public/images/pesas.png"} />
+            <img className=" w-40" src={"./images/pesas.png"} />
           </Link>
         </SwiperSlide>
         <SwiperSlide>
           <Link to={"/category/mobile"}>
-            <img className="w-40" src={"../../public/images/mobile.png"} />
+            <img className="w-40" src={"./images/mobile.png"} />
           </Link>
         </SwiperSlide>
       </Swiper>

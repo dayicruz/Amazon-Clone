@@ -32,7 +32,7 @@ const LoginPage = () => {
       <div className=" bg-amazonclone-light_blu flex items-center p-5 sm:bg-white">
         <img
           className=" object-contain w-[90px] h-[30px] sm:hidden "
-          src={"../../../public/images/amazon.png"}
+          src={"./images/amazon.png"}
           alt="logo amazon"
         />
       </div>
