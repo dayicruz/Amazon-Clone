@@ -29,7 +29,7 @@ const Header = () => {
               <Link to={"/products"}>
                 <img
                   className="sm:w-[100px] sm:h-[30px] object-contain w-[75px] h-[30px]"
-                  src={"/src/images/amazon.jpg"}
+                  src={"./images/amazon.jpg"}
                   alt="logo amazon"
                 />
               </Link>

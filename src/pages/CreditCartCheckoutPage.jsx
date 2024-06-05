@@ -313,9 +313,9 @@ const CreditCartCheckoutPage = () => {
                   Amazon accepts most credit and debit cards:
                 </p>
               </div>
-              <div className="flex sm:justify-end gap-3 items-center mt-2">
+       {/*        <div className="flex sm:justify-end gap-3 items-center mt-2">
                 <img
-                  src={"./images/dinersclub.png"}
+                  src={"./images/dinersclub.jpg"}
                   alt="logo diners Club"
                   className="sm:w-16  w-[18vw] object-contain"
                 />
@@ -330,7 +330,7 @@ const CreditCartCheckoutPage = () => {
                   alt="logo diners Club"
                   className="sm:w-10 w-[8vw] object-contain"
                 />
-              </div>
+              </div> */}
 
               <div className="flex gap-1 mt-4">
                 <button
