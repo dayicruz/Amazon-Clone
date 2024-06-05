@@ -315,7 +315,7 @@ const CreditCartCheckoutPage = () => {
               </div>
               <div className="flex sm:justify-end gap-3 items-center mt-2">
                 <img
-                  src={"./images/logos_dinersclub.png"}
+                  src={"./images/dinersclub.png"}
                   alt="logo diners Club"
                   className="sm:w-16  w-[18vw] object-contain"
                 />
