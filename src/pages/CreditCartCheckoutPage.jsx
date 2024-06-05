@@ -88,11 +88,11 @@ const CreditCartCheckoutPage = () => {
                           </button>
                         </div>
                         <div className="flex flex-col sm:flex-row items-center text-center gap-2">
-                          <img
+                          {/* <img
                             src={"./images/Vector.png"}
                             alt="logo diners Club"
                             className="sm:w-7  w-[15vw] object-contain"
-                          />
+                          /> */}
                           <p className="text-xs font-semibold capitalize">
                             {" "}
                             {card.cardName}{" "}
