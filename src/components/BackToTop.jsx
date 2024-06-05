@@ -2,7 +2,7 @@ import React from "react";
 import { FaArrowUp } from "react-icons/fa";
 const BackToTop = () => {
   return (
-    <div className="flex flex-col items-center justify-center pb-5">
+    <section className="flex flex-col items-center justify-center pb-5">
       <div>
         <FaArrowUp />
       </div>
@@ -20,7 +20,7 @@ const BackToTop = () => {
           Back to top
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

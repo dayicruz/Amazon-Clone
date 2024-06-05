@@ -3,11 +3,11 @@ import React, { useContext, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { ProductsContext } from "../contextProducts/ProductsContext";
+import BackToTop from "./BackToTop";
 import Carousel from "./Carousel";
 import CarouselCategories from "./CarouselCategories";
 import CarouselProducts from "./CarouselProducts";
 import HomePageCards from "./HomePageCards";
-import BackToTop from "./BackToTop";
 const HomePage = () => {
   const backToTop = useRef();
   const { productData } = useContext(ProductsContext);
@@ -29,7 +29,7 @@ const HomePage = () => {
     navigate(`/${product.category}/${product.category}/${productId}`);
   };
   return (
-    <div
+    <main
       id="top"
       ref={backToTop}
       className="bg-amazonclone-background animate__animated animate__fadeIn animate__faster"
@@ -56,15 +56,16 @@ const HomePage = () => {
         </div>
         <CarouselProducts />
         <CarouselCategories />
-        <div className=" pb-6">
+        <section className=" pb-6">
           <img
+            alt="imagen banner"
             className="w-[80vw] h-[30vw] m-auto object-fill 2xl:w-[]"
             src={"../../public/images/banner_image.jpg"}
           />
-        </div>
+        </section>
       </div>
-   <BackToTop/>
-    </div>
+      <BackToTop />
+    </main>
   );
 };
 

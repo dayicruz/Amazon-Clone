@@ -34,22 +34,23 @@ const Signup = () => {
         <img
           className=" object-contain w-[90px] h-[30px] sm:hidden"
           src={"../image/amazon.png"}
-          alt=""
+          alt="logo amazon"
         />
       </div>
 
       <div className="sm:flex sm:justify-center sm:items-center hidden">
         <img
+          alt="logo amazon"
           src={"../../public/images/logo amazon.jpg"}
           className="object-contain w-[150px] h-[60px] "
         />
       </div>
 
       <div className="sm:rounded sm:border sm:border-slate-300 sm:m-36 sm:mt-0 sm:p-3 sm:mb-1 xl:w-[400px] xl:m-auto lg:w-[400px] lg:m-auto md:w-[400px] md:m-auto">
-        <p className="p-3 font-medium text-xl sm:text-sm">
+        <h2 className="p-3 font-medium text-xl sm:text-sm">
           Create account{" "}
           <span className="text-sm ">Are you new to Amazon?</span>
-        </p>
+        </h2>
         <div>
           <form onSubmit={onSubmit} className="flex flex-col p-3 gap-1">
             <p className="p-1 text-sm sm:text-xs">Name</p>
@@ -154,34 +155,44 @@ const Signup = () => {
           </form>
         </div>
       </div>
-      <div className="bg-amazonclone text-white sm:bg-white sm:text-black">
-        <div className="bg-amazonclone p-3 text-white sm:bg-white sm:text-black">
-          <div className="bg-amazonclone flex justify-center items-center gap-6 pt-3 text-white sm:bg-white sm:text-black">
+      <section className="bg-amazonclone text-white sm:bg-white sm:text-black">
+        <div className=" p-3 ">
+          <div className=" flex justify-center items-center gap-6 pt-3 text-white sm:bg-white sm:text-black">
             <div className="flex justify-center items-center  gap-2">
               <div>
                 <TbWorld />
               </div>
-              <div>Castellano</div>
+              <p>Castellano</p>
             </div>
             <div className="flex justify-center items-center gap-2">
               <div>
                 <FaRegFlag />
               </div>
-              <div>España</div>
+              <p>España</p>
             </div>
           </div>
         </div>
-        <div className="bg-amazonclone text-white flex text-[10px] w-full p-5 justify-center flex-wrap sm:p-0 sm:bg-white sm:text-black">
-          <div className="pl-3">Conditions of Use and Salea</div>
-          <div className="pl-3">Notice of Privacy</div>
-          <div className="pl-3 sm:hidden">Legal area</div>
-          <div className="pl-3 sm:hidden">Cookies</div>
-          <div className="pl-3 sm:hidden">Interest-based advertising</div>
-        </div>
+        <ul className="bg-amazonclone text-white flex text-[10px] w-full p-5 justify-center flex-wrap sm:p-0 sm:bg-white sm:text-black">
+          <li title="Conditions of Use and Salea" className="pl-3">
+            Conditions of Use and Salea
+          </li>
+          <li title="Notice of Privacy" className="pl-3">
+            Notice of Privacy
+          </li>
+          <li title="Legal area" className="pl-3 sm:hidden">
+            Legal area
+          </li>
+          <li title="Cookies" className="pl-3 sm:hidden">
+            Cookies
+          </li>
+          <li title="Interest-based advertising" className="pl-3 sm:hidden">
+            Interest-based advertising
+          </li>
+        </ul>
         <div className="bg-amazonclone text-white flex justify-center w-full pb-5 sm:bg-white sm:text-black sm:p-1">
-          <div className="text-[9px]">© 2024, Dayana Cruz</div>
+          <p className="text-[9px]">© 2024, Dayana Cruz</p>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

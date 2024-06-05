@@ -18,12 +18,14 @@ const CarouselProducts = () => {
     .sort(randomSort);
 
   return (
-    <div className="bg-white m-3 2xl:m-6 2xl:p-6 p-3 ">
-      <div className="font-bold  text-lg  ">Best Sellers</div>
+    <section className="bg-white m-3 2xl:m-6 2xl:p-6 p-3 ">
+      <h3 className="font-bold  text-lg  ">Best Sellers</h3>
       <Swiper
         slidesPerView={3}
         spaceBetween={20}
-        pagination={true}
+        pagination={{
+          clickable: true,
+        }}
         modules={[Pagination]}
         breakpoints={{
           640: {
@@ -52,7 +54,7 @@ const CarouselProducts = () => {
             )
         )}
       </Swiper>
-    </div>
+    </section>
   );
 };
 

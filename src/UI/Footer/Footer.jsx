@@ -10,12 +10,12 @@ const Footer = () => {
     if (location.pathname != "/signup")
       return (
         <div>
-          <div className="bg-amazonclone text-white ">
+          <footer className="bg-amazonclone text-white ">
             <Navegation />
             <Languages />
             <Links />
             <CopyRight />
-          </div>
+          </footer>
         </div>
       );
 };

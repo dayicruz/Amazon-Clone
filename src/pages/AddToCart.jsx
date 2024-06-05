@@ -33,7 +33,7 @@ const AddToCart = () => {
   };
 
   return (
-    <div>
+    <section>
       <div className="flex flex-col sm:flex-row sm:bg-amazonclone-background sm:p-32 md:p-16 sm:gap-5 md:gap-2 2xl:gap-5  sm:m-auto">
         <div className=" sm:w-[60vw] p-5 sm:p-0">
           <div className="  bg-white ">
@@ -221,7 +221,7 @@ const AddToCart = () => {
       <div className="bg-amazonclone-background">
         <BackToTop />
       </div>
-    </div>
+    </section>
   );
 };
 
