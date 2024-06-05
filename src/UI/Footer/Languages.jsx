@@ -5,7 +5,7 @@ const Languages = () => {
     <section className="bg-amazonclone-light_blu sm:flex sm:items-center sm:justify-center sm:flex-col sm:gap-3 sm:p-4 hidden">
       <img
         className="sm:w-[70px] sm:h-[30px] object-contain w-[75px] h-[30px]"
-        src={"../../../public/images/amazon.png"}
+        src={"./images/amazon.png"}
         alt="logo amazon"
       />
       <ul className="flex gap-3 sm:max-w-[1000px] sm:m-auto sm:p-4 flex-wrap justify-center">
