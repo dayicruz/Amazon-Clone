@@ -27,7 +27,7 @@ export const AsideAddToCart = ({ totalItems, totalPrice }) => {
 
   return (
     <>
-      <div className="bg-amazonclone-background   border-t border-[#ffd814] sm:border-none ">
+      <section className="bg-amazonclone-background   border-t border-[#ffd814] sm:border-none ">
         <div className="sm:w-[17vw] md:w-[26.5vw] 2xl:w-[17.5vw] xl:w-[17.5vw] lg:w-[26vw] bg-white p-5">
           <h3 className="sm:text-md md:text-sm font-semibold">
             Subtotal ({totalItems} product):{" "}
@@ -48,7 +48,7 @@ export const AsideAddToCart = ({ totalItems, totalPrice }) => {
             {error}
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

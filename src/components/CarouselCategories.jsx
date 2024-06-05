@@ -5,12 +5,14 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 const CarouselCategories = () => {
   return (
-    <div className="bg-white m-3 2xl:m-6 2xl:p-4 p-3">
-      <div className="font-bold text-lg ">Shop by Category</div>
+    <section className="bg-white m-3 2xl:m-6 2xl:p-4 p-3">
+      <h3 className="font-bold text-lg ">Shop by Category</h3>
       <Swiper
         slidesPerView={4}
         spaceBetween={20}
-        pagination={true}
+        pagination={{
+          clickable: true,
+        }}
         modules={[Pagination]}
         breakpoints={{
           640: {
@@ -47,7 +49,7 @@ const CarouselCategories = () => {
           </Link>
         </SwiperSlide>
       </Swiper>
-    </div>
+    </section>
   );
 };
 

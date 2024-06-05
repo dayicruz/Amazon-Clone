@@ -78,35 +78,49 @@ const Search = () => {
   };
 
   return (
-    <div className="w-[100%]">
+    <div className="w-full">
       <div className="flex items-center justify-center h-10 bg-amazonclone-yellow rounded">
-        <select
-          className="p-[6px] bg-gray-300 text-black border text-xs xl:text-sm focus:outline-none focus:border-none"
-          style={{ border: "none" }}
-          onClick={handleSelectChange}
-        >
-          <option>All</option>
-          {[...uniqueCategories].map((category) => (
-            <option key={category}>
-              {category[0].toUpperCase() + category.slice(1)}
-            </option>
-          ))}
-        </select>
         <form
-          className="flex grow items-center h-[100%] rounded-l text-black focus:outline-none  focus:border-[#FEBD69] pl-1 "
+          className="flex grow items-center h-full rounded-l text-black focus:outline-none focus:border-[#FEBD69] pl-1"
           onSubmit={onSearchSubmit}
         >
+          <label htmlFor="categorySelect" className="sr-only">
+            Select Category
+          </label>
+          <select
+            id="categorySelect"
+            className="p-1.5 bg-gray-300 text-black border text-xs xl:text-sm focus:outline-none focus:border-none"
+            style={{ border: "none" }}
+            onClick={handleSelectChange}
+            aria-label="Select Category"
+          >
+            <option value="all">All</option>
+            {[...uniqueCategories].map((category) => (
+              <option key={category} value={category}>
+                {category[0].toUpperCase() + category.slice(1)}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="searchText" className="sr-only">
+            Search
+          </label>
           <input
-            className="flex grow items-center h-[100%] rounded-l text-black focus:outline-none  focus:border-[#FEBD69] pl-1"
+            id="searchText"
+            className="flex grow items-center h-full rounded-l text-black focus:outline-none focus:border-[#FEBD69] pl-1"
             type="text"
             name="searchText"
             value={searchText}
             onChange={onInputChange}
             placeholder={placeholder}
+            aria-label="Search"
           />
 
-          <button className="w-[45px]">
-            <FaMagnifyingGlass className="text-black h-[27px] m-auto " />
+          <button
+            className="w-11 h-full flex items-center justify-center"
+            aria-label="Search Button"
+          >
+            <FaMagnifyingGlass className="text-black h-6 m-auto" />
           </button>
         </form>
       </div>

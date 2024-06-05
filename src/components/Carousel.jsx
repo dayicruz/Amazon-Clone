@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 const Carousel = () => {
   return (
-    <div className=" bg-white ">
+    <section className=" bg-white ">
       <Swiper
         loop={true}
         spaceBetween={0}
@@ -35,8 +35,7 @@ const Carousel = () => {
           <img src={"../../public/images/carousel_5.jpg"} />
         </SwiperSlide>
       </Swiper>
-      {/* <div className="h-[50%] bg-gradient-to-b from-stone-900 " /> */}
-    </div>
+    </section>
   );
 };
 

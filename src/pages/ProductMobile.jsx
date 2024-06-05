@@ -2,10 +2,10 @@ import CarouselProducts from "./components/CarouselProducts";
 
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
+import BackToTop from "../components/BackToTop";
 import { ProductsContext } from "../contextProducts/ProductsContext";
 import AsideDetailPage from "./components/AsideDetailPage";
 import Starts from "./components/Starts";
-import BackToTop from "../components/BackToTop";
 
 const ProductMobile = () => {
   const { details } = useParams();
@@ -13,32 +13,35 @@ const ProductMobile = () => {
   const { productData } = useContext(ProductsContext);
 
   return (
-    <div className="max-w-screen-xl m-auto p-3">
+    <section className="max-w-screen-xl m-auto p-3">
       {productData.map(
         (data) =>
           data.id === details && (
-            <div key={data.id}>
-              <div className=" sm:mt-20 mb-10 flex flex-col sm:flex-row">
-                <div className="sm:w-[20vw] sm:mr-6 sm:self-start w-[50vw] self-center ">
-                  <img src={data.image} alt="" className="object-contain" />
+            <article key={data.id}>
+              <div className="sm:mt-20 mb-10 flex flex-col sm:flex-row">
+                <div className="sm:w-[20vw] sm:mr-6 sm:self-start w-[50vw] self-center">
+                  <img
+                    src={data.image}
+                    alt={data.title}
+                    className="object-contain"
+                  />
                 </div>
                 <div className="sm:w-[50vw] flex flex-col mr-6 w-[90vw] mt-5 sm:mt-0">
-                  <div className="flex flex-col sm:gap-1  gap-2">
+                  <div className="flex flex-col sm:gap-1 gap-2">
                     <div className="flex items-center gap-2">
-                      <h3 className="sm:text-2xl text-xl font-semibold ">
+                      <h1 className="sm:text-2xl text-xl font-semibold">
                         {data.title}
-                      </h3>
+                      </h1>
                     </div>
-
                     <Starts />
                     <div>
-                      <p className="text-ml font-bold text-[#b12704] ">
+                      <p className="text-ml font-bold text-[#b12704]">
                         {data.price}
                       </p>
                     </div>
                   </div>
-                  <div className=" border-t border-b border-slate-400 mt-3 mb-3 pt-3 pb-3 flex flex-col gap-3">
-                    <h3 className="text-lg font-bold">Product Details</h3>
+                  <section className="border-t border-b border-slate-400 mt-3 mb-3 pt-3 pb-3 flex flex-col gap-3">
+                    <h2 className="text-lg font-bold">Product Details</h2>
                     <div className="flex gap-10">
                       <div className="flex flex-col gap-3">
                         <p className="text-sm font-semibold">Brand</p>
@@ -62,69 +65,56 @@ const ProductMobile = () => {
                         </p>
                       </div>
                       <div className="flex flex-col gap-3">
-                        <p className="text-sm ">
-                          {data.Brand ? data.Brand : "not specified"}
+                        <p className="text-sm">
+                          {data.Brand || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.Color ? data.Color : "not specified"}
+                          {data.Color || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.Connectivity_technology
-                            ? data.Connectivity_technology
-                            : "not specified"}
+                          {data.Connectivity_technology || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.Memory_storage_capacity
-                            ? data.Memory_storage_capacity
-                            : "not specified"}
+                          {data.Memory_storage_capacity || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.Model_name ? data.Model_name : "not specified"}
+                          {data.Model_name || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.Screen_size
-                            ? data.Screen_size
-                            : "not specified"}
+                          {data.Screen_size || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.Wireless_operator
-                            ? data.Wireless_operator
-                            : "not specified"}
+                          {data.Wireless_operator || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.mobile_technology
-                            ? data.mobile_technology
-                            : "not specified"}
+                          {data.mobile_technology || "Not specified"}
                         </p>
                         <p className="text-sm">
-                          {data.wireless_network_technology
-                            ? data.wireless_network_technology
-                            : "not specified"}
+                          {data.wireless_network_technology || "Not specified"}
                         </p>
                       </div>
                     </div>
+                  </section>
+                  <div className="flex flex-col gap-3">
+                    <h2 className="text-lg font-bold mb-2">
+                      About this product
+                    </h2>
+                    <ul className="flex flex-col gap-3">
+                      {data.About_this_product &&
+                        data.About_this_product.map((element, index) => (
+                          <li key={index}>• {element}</li>
+                        ))}
+                    </ul>
                   </div>
-
-                  <div className="  border-slate-400 flex flex-col gap-3"></div>
-                  <h3 className="text-lg font-bold mb-2">About this product</h3>
-
-                  <ul className="flex flex-col gap-3">
-                    {data.About_this_product &&
-                      data.About_this_product.map((element, index) => (
-                        <li key={index}>• {element}</li>
-                      ))}
-                    
-                  </ul>
                 </div>
                 <AsideDetailPage />
               </div>
-            </div>
+            </article>
           )
       )}
-
       <CarouselProducts />
-      <BackToTop/>
-    </div>
+      <BackToTop />
+    </section>
   );
 };
 
