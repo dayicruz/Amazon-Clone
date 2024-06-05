@@ -1,3 +1,4 @@
+
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,6 +30,9 @@ function App() {
   if (status === "checking") {
     return <Spinner />;
   }
+
+
+
 
   return (
     <>
